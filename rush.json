@@ -459,8 +459,11 @@
     // },
     {
       "packageName": "client",
-      "projectFolder": "apps/client",
-      "shouldPublish": true
+      "projectFolder": "apps/client"
+    },
+    {
+      "packageName": "api",
+      "projectFolder": "apps/api"
     }
   ]
 }

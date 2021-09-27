@@ -1,8 +1,11 @@
 # Logs
+logs
 *.log
 npm-debug.log*
+pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
 
 # Runtime data
 *.pid
@@ -33,6 +36,8 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+/.pnp
+.pnp.js
 
 # Optional npm cache directory
 .npm
@@ -54,6 +59,7 @@ jspm_packages/
 
 # next.js build output
 .next
+out/
 
 # OS X temporary files
 .DS_Store
@@ -66,3 +72,28 @@ common/autoinstallers/*/.npmrc
 
 # Heft
 .heft
+
+# misc
+*.pem
+
+# vercel
+.vercel
+
+# compiled output
+**/dist
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
