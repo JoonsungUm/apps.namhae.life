@@ -29,7 +29,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Appbar />
+      <Appbar title="Namhae Life 식사배달" />
 
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />

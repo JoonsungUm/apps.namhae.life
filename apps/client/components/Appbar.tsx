@@ -9,13 +9,17 @@ import {
 } from '@mui/material'
 
 
-export const Appbar: NextPage = () => {
+interface AppbarProps {
+  title: string
+}
+
+export const Appbar: NextPage<AppbarProps> = ({ title }) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar>
           <Typography variant="h6" noWrap component="div">
-            Namhae Life 식사 배달
+            {title}
           </Typography>
         </Toolbar>
       </AppBar>
