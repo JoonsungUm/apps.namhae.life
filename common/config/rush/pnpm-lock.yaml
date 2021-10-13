@@ -924,6 +924,23 @@ packages:
       react-is: 17.0.2
     dev: false
 
+  /@mui/icons-material/5.0.3_4708d87537568924a83ffdea00ac702d:
+    resolution: {integrity: sha512-Lktn+4GNnXdVrOCUUvNNvOD9VyrGazWBsJy0BQeQgBe/+IjFMdlcNrDEUIlGlA5ZXOq7Mr/Mv9Os02mgF65jiw==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@mui/material': ^5.0.0-rc.0
+      '@types/react': ^16.8.6 || ^17.0.0
+      react: ^17.0.2
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.15.4
+      '@mui/material': 5.0.1_604b72d74923f30e2e755c544d7c2813
+      '@types/react': 17.0.24
+      react: 17.0.2
+    dev: false
+
   /@mui/material/5.0.1_604b72d74923f30e2e755c544d7c2813:
     resolution: {integrity: sha512-+/JJzRcORUf5MiZnzuqsPFRgxm3/0CUi1wE97ZQ2y7r+EnDVsjJLcjAH9Q9GY3k9zkPIpYb9Hig/+HT6AGZRnQ==}
     engines: {node: '>=12.0.0'}
@@ -7539,12 +7556,13 @@ packages:
     dev: false
 
   file:projects/client.tgz:
-    resolution: {integrity: sha512-PcqAk1/9P/1FUdOjsUqEp+ckuxy32ThN4pLNCN3E0oU6sERdALL93oc6xC6pxksnc1PMdln35Pb/awKfTVL6aA==, tarball: file:projects/client.tgz}
+    resolution: {integrity: sha512-/MQTwSWt+0wdAX7lHMWeHWUlP+ZE6cdBx1wlqaRhefOGZv174vpPdDuwrq8fDkrI27yuIbGNTk5e/YyC8XaZ7Q==, tarball: file:projects/client.tgz}
     name: '@rush-temp/client'
     version: 0.0.0
     dependencies:
       '@emotion/react': 11.4.1_9b26932173ac5a93c18fc8634be19f05
       '@emotion/styled': 11.3.0_83521c68fe473959abc458396e5ebb94
+      '@mui/icons-material': 5.0.3_4708d87537568924a83ffdea00ac702d
       '@mui/material': 5.0.1_604b72d74923f30e2e755c544d7c2813
       '@types/react': 17.0.24
       eslint: 7.32.0

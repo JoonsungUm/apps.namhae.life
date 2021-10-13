@@ -15,8 +15,8 @@ import {
   CardActionArea,
 } from '@mui/material'
 
-import { Appbar } from '../../components/Appbar'
-import { FoodDrawer } from '../../components/FoodDrawer'
+import Appbar from '../../components/Appbar'
+import OrderDrawer from '../../components/OrderDrawer'
 
 import { stores } from '../../data/stores'
 
@@ -45,9 +45,15 @@ interface StoreProps {
 }
 
 const StorePage: NextPage<StoreProps> = ({ store, menus }) => {
-  const { name, description } = store
+  const [ mobileOpen, setMobileOpen ] = useState(false);
 
-  console.log(menus)
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen)
+  }
+
+  const drawerWidth = 240
+
+  const { name, description } = store
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -57,7 +63,11 @@ const StorePage: NextPage<StoreProps> = ({ store, menus }) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Appbar title={name} />
+      <Appbar
+        title={name}
+        drawerWidth={drawerWidth}
+        handleDrawerToggle={handleDrawerToggle}
+      />
 
       <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
@@ -84,8 +94,11 @@ const StorePage: NextPage<StoreProps> = ({ store, menus }) => {
         </Box>
       </Box>
 
-      <FoodDrawer />
-
+      <OrderDrawer
+        drawerWidth={drawerWidth}
+        mobileOpen={mobileOpen}
+        handleDrawerToggle={handleDrawerToggle}
+      />
     </Box>
   )
 }
