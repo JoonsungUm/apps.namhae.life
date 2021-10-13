@@ -10,5 +10,5 @@
 # and
 ~$ rush update
 # and
-~/apps/client$ rush update
+~/apps/client$ rushx dev
 ```
