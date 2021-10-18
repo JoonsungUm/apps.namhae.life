@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import { styled } from "@mui/material/styles";
+import Badge, { BadgeProps } from "@mui/material/Badge";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import {
   Toolbar,

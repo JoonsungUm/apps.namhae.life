@@ -3,8 +3,10 @@ import { NextPage, GetStaticProps } from "next";
 import Image from "next/image";
 import Head from "next/head";
 import { styled } from "@mui/material/styles";
+import Badge, { BadgeProps } from "@mui/material/Badge";
 
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+
 import {
   Box,
   Grid,
@@ -99,7 +101,6 @@ const StorePage: NextPage<StoreProps> = ({ store, menus }) => {
           </Grid>
         </Box>
       </Box>
-
       <OrderDrawer
         drawerWidth={drawerWidth}
         mobileOpen={mobileOpen}
