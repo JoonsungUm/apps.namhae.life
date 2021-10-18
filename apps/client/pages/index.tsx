@@ -93,7 +93,7 @@ const StoreCard: NextPage<StoreCardProps> = (stores) => {
             component="img"
             height="140"
             image={image}
-            alt="green iguana"
+            alt={name}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">

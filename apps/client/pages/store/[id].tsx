@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { NextPage, GetStaticProps } from 'next'
-import Image from 'next/image'
 import Head from 'next/head'
-import { styled } from '@mui/material/styles'
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import {
@@ -24,23 +22,10 @@ import OrderDrawer from '../../components/OrderDrawer'
 
 import { stores } from '../../data/stores'
 
-interface Store {
-  id: string
-  name: string
-  image: string
-  address: string
-  phone: string
-  description: string
-}
+import { Store, Menu } from '../../types'
 
-interface Menu {
-  id: string
-  name: string
-  price: number
-  image: string
-  description: string
-  isAvailable: boolean
-}
+
+const BREAK_TIME = 15
 
 interface StoreProps {
   store: Store
@@ -88,12 +73,9 @@ const StorePage: NextPage<StoreProps> = ({ store, menus }) => {
             {menus.map((menu, index) => (
               <Grid key={index} item xs={4} sm={4} md={4}>
                 <MenuCard
-                  id={menu.id}
-                  name={menu.name}
-                  price={menu.price}
-                  image={menu.image}
-                  description={menu.description}
-                />
+                  menu={menu}
+                >
+                </MenuCard>
               </Grid>
             ))}
           </Grid>
@@ -124,7 +106,7 @@ const StoreHomeCard: NextPage<StoreHomeCardProps> = ({ store }) => {
         component="img"
         sx={{ maxWidth: 500, width: '40%' }}
         image={image}
-        alt="Live from space album cover"
+        alt={name}
       />
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ flex: '1 0 auto' }}>
@@ -155,14 +137,20 @@ const StoreHomeCard: NextPage<StoreHomeCardProps> = ({ store }) => {
 }
 
 interface MenuCardProps {
-  id: string
-  name: string
-  price: number
-  image: string
-  description: string
+  menu: Menu
 }
 
-const MenuCard: NextPage<MenuCardProps> = (menu) => {
+const isMenuAvailable = (menu: Menu): boolean => {
+  const currentTime = new Date().getHours()
+
+  if (currentTime < BREAK_TIME) {
+    return menu.isLunch
+  } else {
+    return menu.isDinner
+  }
+}
+
+const MenuCard: NextPage<MenuCardProps> = ({ menu }) => {
   const { id, name, price, image, description } = menu
 
   return (
@@ -173,14 +161,14 @@ const MenuCard: NextPage<MenuCardProps> = (menu) => {
             component="img"
             height="140"
             image={image}
-            alt="green iguana"
+            alt={name}
           />
         )}
-        <CardContent sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Typography gutterBottom variant="h5" component="div">
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div" color={isMenuAvailable(menu) ? "text.primary" : "text.secondary"}>
             {name}
           </Typography>
-          <Typography variant="body1" component="div">
+          <Typography variant="body1" component="div" color={isMenuAvailable(menu) ? "text.primary" : "text.secondary"}>
             {price}
           </Typography>
           <Typography variant="body2" color="text.secondary">
@@ -208,7 +196,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       store,
-      menus: menus.filter((menu: Menu) => menu.isAvailable),
+      menus,
     },
   }
 }
