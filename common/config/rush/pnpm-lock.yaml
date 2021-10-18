@@ -27,6 +27,7 @@ specifiers:
   eslint: ^7.32.0
   eslint-config-next: 11.1.2
   eslint-config-prettier: ^8.3.0
+  eslint-plugin-next: ~0.0.0
   eslint-plugin-prettier: ^3.4.0
   graphql: ~15.6.1
   jest: ^27.0.6
@@ -61,7 +62,7 @@ dependencies:
   '@nestjs/testing': 8.0.7_8ffe6e0ad2b5133474b7368d6492ee85
   '@nestjs/typeorm': 8.0.2_0c71527ce3d5f984182dc45cb54230e0
   '@rush-temp/api': file:projects/api.tgz
-  '@rush-temp/client': file:projects/client.tgz
+  '@rush-temp/client': file:projects/client.tgz_prettier@2.4.1
   '@types/express': 4.17.13
   '@types/jest': 27.0.2
   '@types/node': 16.9.6
@@ -73,6 +74,7 @@ dependencies:
   eslint: 7.32.0
   eslint-config-next: 11.1.2_82ad98da5e129ae9d310451a179848d9
   eslint-config-prettier: 8.3.0_eslint@7.32.0
+  eslint-plugin-next: 0.0.0
   eslint-plugin-prettier: 3.4.1_6e975bd57c7acf028c1a9ddbbf60c898
   graphql: 15.6.1
   jest: 27.2.2_ts-node@10.2.1
@@ -3826,6 +3828,10 @@ packages:
       has: 1.0.3
       jsx-ast-utils: 3.2.1
       language-tags: 1.0.5
+    dev: false
+
+  /eslint-plugin-next/0.0.0:
+    resolution: {integrity: sha512-IldNDVb6WNduggwRbYzSGZhaskUwVecJ6fhmqwX01+S1aohwAWNzU4me6y47DDzpD/g0fdayNBGxEdt9vKkUtg==}
     dev: false
 
   /eslint-plugin-prettier/3.4.1_6e975bd57c7acf028c1a9ddbbf60c898:
@@ -8607,8 +8613,9 @@ packages:
       - webpack-cli
     dev: false
 
-  file:projects/client.tgz:
-    resolution: {integrity: sha512-/MQTwSWt+0wdAX7lHMWeHWUlP+ZE6cdBx1wlqaRhefOGZv174vpPdDuwrq8fDkrI27yuIbGNTk5e/YyC8XaZ7Q==, tarball: file:projects/client.tgz}
+  file:projects/client.tgz_prettier@2.4.1:
+    resolution: {integrity: sha512-i4gBd7JEfXWhsVgRCPpWzGspZWuPVZKijkgKiWqEKxA2AZo3iFJqNU2W3o17fKW7iPxJjk0qdXz5Dr6bURbFGg==, tarball: file:projects/client.tgz}
+    id: file:projects/client.tgz
     name: '@rush-temp/client'
     version: 0.0.0
     dependencies:
@@ -8619,6 +8626,9 @@ packages:
       '@types/react': 17.0.24
       eslint: 7.32.0
       eslint-config-next: 11.1.2_82ad98da5e129ae9d310451a179848d9
+      eslint-config-prettier: 8.3.0_eslint@7.32.0
+      eslint-plugin-next: 0.0.0
+      eslint-plugin-prettier: 3.4.1_6e975bd57c7acf028c1a9ddbbf60c898
       next: 11.1.2_bd7797d63db473de6e2318609a63c933
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -8627,6 +8637,7 @@ packages:
       - '@babel/core'
       - fibers
       - node-sass
+      - prettier
       - sass
       - supports-color
       - webpack
