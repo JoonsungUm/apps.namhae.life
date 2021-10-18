@@ -98,7 +98,7 @@ const StoreHomeCard: NextPage<StoreHomeCardProps> = ({ store }) => {
         component="img"
         sx={{ maxWidth: 500, width: '40%' }}
         image={image}
-        alt="Live from space album cover"
+        alt={name}
       />
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ flex: '1 0 auto' }}>
@@ -147,7 +147,7 @@ const MenuCard: NextPage<MenuCardProps> = ({ menu }) => {
             component="img"
             height="140"
             image={image}
-            alt="green iguana"
+            alt={name}
           />
         )}
         <CardContent>
