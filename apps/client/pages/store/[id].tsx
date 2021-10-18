@@ -24,7 +24,6 @@ import { stores } from '../../data/stores'
 
 import { Store, Menu } from '../../types'
 
-
 const BREAK_TIME = 15
 
 interface StoreProps {
@@ -72,10 +71,7 @@ const StorePage: NextPage<StoreProps> = ({ store, menus }) => {
           >
             {menus.map((menu, index) => (
               <Grid key={index} item xs={4} sm={4} md={4}>
-                <MenuCard
-                  menu={menu}
-                >
-                </MenuCard>
+                <MenuCard menu={menu} />
               </Grid>
             ))}
           </Grid>
@@ -157,18 +153,22 @@ const MenuCard: NextPage<MenuCardProps> = ({ menu }) => {
     <Card>
       <CardActionArea>
         {image && (
-          <CardMedia
-            component="img"
-            height="140"
-            image={image}
-            alt={name}
-          />
+          <CardMedia component="img" height="140" image={image} alt={name} />
         )}
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div" color={isMenuAvailable(menu) ? "text.primary" : "text.secondary"}>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            color={isMenuAvailable(menu) ? 'text.primary' : 'text.secondary'}
+          >
             {name}
           </Typography>
-          <Typography variant="body1" component="div" color={isMenuAvailable(menu) ? "text.primary" : "text.secondary"}>
+          <Typography
+            variant="body1"
+            component="div"
+            color={isMenuAvailable(menu) ? 'text.primary' : 'text.secondary'}
+          >
             {price}
           </Typography>
           <Typography variant="body2" color="text.secondary">

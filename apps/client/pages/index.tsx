@@ -89,12 +89,7 @@ const StoreCard: NextPage<StoreCardProps> = (stores) => {
     <Link href={`/store/${id}`} passHref>
       <Card>
         <CardActionArea>
-          <CardMedia
-            component="img"
-            height="140"
-            image={image}
-            alt={name}
-          />
+          <CardMedia component="img" height="140" image={image} alt={name} />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {name}
