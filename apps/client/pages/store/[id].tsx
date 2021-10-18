@@ -93,7 +93,7 @@ const StorePage: NextPage<StoreProps> = ({ store, menus }) => {
                   price={menu.price}
                   image={menu.image}
                   description={menu.description}
-                ></MenuCard>
+                />
               </Grid>
             ))}
           </Grid>
@@ -149,7 +149,6 @@ const StoreHomeCard: NextPage<StoreHomeCardProps> = ({ store }) => {
             {description}
           </Typography>
         </CardContent>
-        <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}></Box>
       </Box>
     </Card>
   )
@@ -188,11 +187,7 @@ const MenuCard: NextPage<MenuCardProps> = (menu) => {
             {description}
           </Typography>
           <Typography sx={{ textAlign: 'right' }}>
-            <IconButton
-              href="#text-buttons"
-              color="primary"
-              aria-label="add to shopping cart"
-            >
+            <IconButton color="primary" aria-label="add to shopping cart">
               <AddShoppingCartIcon />
             </IconButton>
           </Typography>

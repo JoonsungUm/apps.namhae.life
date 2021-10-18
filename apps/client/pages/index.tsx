@@ -58,7 +58,7 @@ const Home: NextPage = () => {
                 name={store.name}
                 image={store.image ? store.image : '/vercel.svg'}
                 description={store.description}
-              ></StoreCard>
+              />
             </Grid>
           ))}
         </Grid>
