@@ -3,6 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@emotion/react': ~11.4.1
   '@emotion/styled': ~11.3.0
+  '@mui/icons-material': ~5.0.3
   '@mui/material': ~5.0.1
   '@nestjs/cli': ^8.0.0
   '@nestjs/common': ^8.0.0
@@ -22,6 +23,7 @@ specifiers:
   eslint: ^7.32.0
   eslint-config-next: 11.1.2
   eslint-config-prettier: ^8.3.0
+  eslint-plugin-next: ~0.0.0
   eslint-plugin-prettier: ^3.4.0
   jest: ^27.0.6
   next: 11.1.2
@@ -41,6 +43,7 @@ specifiers:
 dependencies:
   '@emotion/react': 11.4.1_9b26932173ac5a93c18fc8634be19f05
   '@emotion/styled': 11.3.0_83521c68fe473959abc458396e5ebb94
+  '@mui/icons-material': 5.0.3_4708d87537568924a83ffdea00ac702d
   '@mui/material': 5.0.1_604b72d74923f30e2e755c544d7c2813
   '@nestjs/cli': 8.1.1
   '@nestjs/common': 8.0.7_486826780eeff986d3746a62b5df4b6b
@@ -49,7 +52,7 @@ dependencies:
   '@nestjs/schematics': 8.0.3_typescript@4.4.3
   '@nestjs/testing': 8.0.7_8ffe6e0ad2b5133474b7368d6492ee85
   '@rush-temp/api': file:projects/api.tgz
-  '@rush-temp/client': file:projects/client.tgz
+  '@rush-temp/client': file:projects/client.tgz_prettier@2.4.1
   '@types/express': 4.17.13
   '@types/jest': 27.0.2
   '@types/node': 16.9.6
@@ -60,6 +63,7 @@ dependencies:
   eslint: 7.32.0
   eslint-config-next: 11.1.2_82ad98da5e129ae9d310451a179848d9
   eslint-config-prettier: 8.3.0_eslint@7.32.0
+  eslint-plugin-next: 0.0.0
   eslint-plugin-prettier: 3.4.1_6e975bd57c7acf028c1a9ddbbf60c898
   jest: 27.2.2_ts-node@10.2.1
   next: 11.1.2_bd7797d63db473de6e2318609a63c933
@@ -1279,6 +1283,7 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
+    requiresBuild: true
     dev: false
     optional: true
 
@@ -1287,6 +1292,7 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
+    requiresBuild: true
     dev: false
     optional: true
 
@@ -1295,6 +1301,7 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
+    requiresBuild: true
     dev: false
     optional: true
 
@@ -1303,6 +1310,7 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
+    requiresBuild: true
     dev: false
     optional: true
 
@@ -2589,6 +2597,7 @@ packages:
   /colors/1.4.0:
     resolution: {integrity: sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==}
     engines: {node: '>=0.1.90'}
+    requiresBuild: true
     dev: false
     optional: true
 
@@ -3237,6 +3246,10 @@ packages:
       language-tags: 1.0.5
     dev: false
 
+  /eslint-plugin-next/0.0.0:
+    resolution: {integrity: sha512-IldNDVb6WNduggwRbYzSGZhaskUwVecJ6fhmqwX01+S1aohwAWNzU4me6y47DDzpD/g0fdayNBGxEdt9vKkUtg==}
+    dev: false
+
   /eslint-plugin-prettier/3.4.1_6e975bd57c7acf028c1a9ddbbf60c898:
     resolution: {integrity: sha512-htg25EUYUeIhKHXjOinK4BgCcDwtLHjqaxCDsMy5nbnUMkKFvIhMVCp+5GFUXQ4Nr8lBsPqtGAqBenbpFqAA2g==}
     engines: {node: '>=6.0.0'}
@@ -3731,6 +3744,7 @@ packages:
     resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
+    requiresBuild: true
     dev: false
     optional: true
 
@@ -7555,8 +7569,9 @@ packages:
       - webpack-cli
     dev: false
 
-  file:projects/client.tgz:
-    resolution: {integrity: sha512-/MQTwSWt+0wdAX7lHMWeHWUlP+ZE6cdBx1wlqaRhefOGZv174vpPdDuwrq8fDkrI27yuIbGNTk5e/YyC8XaZ7Q==, tarball: file:projects/client.tgz}
+  file:projects/client.tgz_prettier@2.4.1:
+    resolution: {integrity: sha512-i4gBd7JEfXWhsVgRCPpWzGspZWuPVZKijkgKiWqEKxA2AZo3iFJqNU2W3o17fKW7iPxJjk0qdXz5Dr6bURbFGg==, tarball: file:projects/client.tgz}
+    id: file:projects/client.tgz
     name: '@rush-temp/client'
     version: 0.0.0
     dependencies:
@@ -7567,6 +7582,9 @@ packages:
       '@types/react': 17.0.24
       eslint: 7.32.0
       eslint-config-next: 11.1.2_82ad98da5e129ae9d310451a179848d9
+      eslint-config-prettier: 8.3.0_eslint@7.32.0
+      eslint-plugin-next: 0.0.0
+      eslint-plugin-prettier: 3.4.1_6e975bd57c7acf028c1a9ddbbf60c898
       next: 11.1.2_bd7797d63db473de6e2318609a63c933
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -7575,6 +7593,7 @@ packages:
       - '@babel/core'
       - fibers
       - node-sass
+      - prettier
       - sass
       - supports-color
       - webpack
