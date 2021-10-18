@@ -1,16 +1,9 @@
 import React from 'react'
 import { NextPage } from 'next'
 
-import {
-  Box,
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-} from '@mui/material'
+import { Box, AppBar, Toolbar, Typography, IconButton } from '@mui/material'
 
 import MenuIcon from '@mui/icons-material/Menu'
-
 
 interface AppbarProps {
   title: string
@@ -18,7 +11,11 @@ interface AppbarProps {
   handleDrawerToggle: () => void
 }
 
-const Appbar: NextPage<AppbarProps> = ({ title, drawerWidth, handleDrawerToggle }) => {
+const Appbar: NextPage<AppbarProps> = ({
+  title,
+  drawerWidth,
+  handleDrawerToggle,
+}) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar
@@ -45,7 +42,7 @@ const Appbar: NextPage<AppbarProps> = ({ title, drawerWidth, handleDrawerToggle 
             }}
           >
             <MenuIcon />
-        </IconButton>
+          </IconButton>
         </Toolbar>
       </AppBar>
     </Box>

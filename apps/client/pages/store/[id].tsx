@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { NextPage, GetStaticProps } from 'next'
 import Head from 'next/head'
 
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import {
   Box,
   Grid,
@@ -11,6 +12,9 @@ import {
   CardContent,
   CardMedia,
   CardActionArea,
+  CardActions,
+  IconButton,
+  Button,
 } from '@mui/material'
 
 import Appbar from '../../components/Appbar'
@@ -20,7 +24,6 @@ import { stores } from '../../data/stores'
 
 import { Store, Menu } from '../../types'
 
-
 const BREAK_TIME = 15
 
 interface StoreProps {
@@ -29,7 +32,7 @@ interface StoreProps {
 }
 
 const StorePage: NextPage<StoreProps> = ({ store, menus }) => {
-  const [ mobileOpen, setMobileOpen ] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
@@ -44,7 +47,7 @@ const StorePage: NextPage<StoreProps> = ({ store, menus }) => {
       <Head>
         <title>{name} - Namhae Life 음식점</title>
         <meta name={name} content={description} />
-        <link rel='icon' href='/favicon.ico' />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Appbar
@@ -53,7 +56,7 @@ const StorePage: NextPage<StoreProps> = ({ store, menus }) => {
         handleDrawerToggle={handleDrawerToggle}
       />
 
-      <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
 
         <Box sx={{ flexGrow: 1 }}>
@@ -61,13 +64,14 @@ const StorePage: NextPage<StoreProps> = ({ store, menus }) => {
             <StoreHomeCard store={store} />
           </Box>
 
-          <Grid container spacing={{ xs: 2, sm: 3}} columns={{ xs: 4, sm: 8, md: 12 }}>
+          <Grid
+            container
+            spacing={{ xs: 2, sm: 3 }}
+            columns={{ xs: 4, sm: 8, md: 12 }}
+          >
             {menus.map((menu, index) => (
               <Grid key={index} item xs={4} sm={4} md={4}>
-                <MenuCard
-                  menu={menu}
-                >
-                </MenuCard>
+                <MenuCard menu={menu} />
               </Grid>
             ))}
           </Grid>
@@ -105,18 +109,24 @@ const StoreHomeCard: NextPage<StoreHomeCardProps> = ({ store }) => {
           <Typography component="div" variant="h5">
             {name}
           </Typography>
-          <Typography variant="subtitle2" color="text.secondary" component="div">
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+            component="div"
+          >
             주소: {address}
           </Typography>
-          <Typography variant="subtitle2" color="text.secondary" component="div">
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+            component="div"
+          >
             전화번호: {phone}
           </Typography>
           <Typography variant="body1" color="text.secondary" component="div">
             {description}
           </Typography>
         </CardContent>
-        <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-        </Box>
       </Box>
     </Card>
   )
@@ -143,22 +153,31 @@ const MenuCard: NextPage<MenuCardProps> = ({ menu }) => {
     <Card>
       <CardActionArea>
         {image && (
-          <CardMedia
-            component="img"
-            height="140"
-            image={image}
-            alt={name}
-          />
+          <CardMedia component="img" height="140" image={image} alt={name} />
         )}
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div" color={isMenuAvailable(menu) ? "text.primary" : "text.secondary"}>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            color={isMenuAvailable(menu) ? 'text.primary' : 'text.secondary'}
+          >
             {name}
           </Typography>
-          <Typography variant="body1" component="div" color={isMenuAvailable(menu) ? "text.primary" : "text.secondary"}>
+          <Typography
+            variant="body1"
+            component="div"
+            color={isMenuAvailable(menu) ? 'text.primary' : 'text.secondary'}
+          >
             {price}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {description}
+          </Typography>
+          <Typography sx={{ textAlign: 'right' }}>
+            <IconButton color="primary" aria-label="add to shopping cart">
+              <AddShoppingCartIcon />
+            </IconButton>
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -166,12 +185,13 @@ const MenuCard: NextPage<MenuCardProps> = ({ menu }) => {
   )
 }
 
-
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { id }: any = params
 
   const store = stores.find((store) => store.id === id)
-  const { menus }: { menus: Menu[] } = await import(`../../data/menus/${id}.tsx`)
+  const { menus }: { menus: Menu[] } = await import(
+    `../../data/menus/${id}.tsx`
+  )
 
   return {
     props: {
