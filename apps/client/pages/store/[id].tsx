@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { NextPage, GetStaticProps } from "next";
-import Image from "next/image";
-import Head from "next/head";
-import { styled } from "@mui/material/styles";
+import React, { useState } from 'react'
+import { NextPage, GetStaticProps } from 'next'
+import Image from 'next/image'
+import Head from 'next/head'
+import { styled } from '@mui/material/styles'
 
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import {
   Box,
   Grid,
@@ -17,49 +17,49 @@ import {
   CardActions,
   IconButton,
   Button,
-} from "@mui/material";
+} from '@mui/material'
 
-import Appbar from "../../components/Appbar";
-import OrderDrawer from "../../components/OrderDrawer";
+import Appbar from '../../components/Appbar'
+import OrderDrawer from '../../components/OrderDrawer'
 
-import { stores } from "../../data/stores";
+import { stores } from '../../data/stores'
 
 interface Store {
-  id: string;
-  name: string;
-  image: string;
-  address: string;
-  phone: string;
-  description: string;
+  id: string
+  name: string
+  image: string
+  address: string
+  phone: string
+  description: string
 }
 
 interface Menu {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  description: string;
-  isAvailable: boolean;
+  id: string
+  name: string
+  price: number
+  image: string
+  description: string
+  isAvailable: boolean
 }
 
 interface StoreProps {
-  store: Store;
-  menus: Menu[];
+  store: Store
+  menus: Menu[]
 }
 
 const StorePage: NextPage<StoreProps> = ({ store, menus }) => {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+    setMobileOpen(!mobileOpen)
+  }
 
-  const drawerWidth = 240;
+  const drawerWidth = 240
 
-  const { name, description } = store;
+  const { name, description } = store
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: 'flex' }}>
       <Head>
         <title>{name} - Namhae Life 음식점</title>
         <meta name={name} content={description} />
@@ -106,28 +106,28 @@ const StorePage: NextPage<StoreProps> = ({ store, menus }) => {
         handleDrawerToggle={handleDrawerToggle}
       />
     </Box>
-  );
-};
+  )
+}
 
-export default StorePage;
+export default StorePage
 
 interface StoreHomeCardProps {
-  store: Store;
+  store: Store
 }
 
 const StoreHomeCard: NextPage<StoreHomeCardProps> = ({ store }) => {
-  const { id, name, image, address, phone, description } = store;
+  const { id, name, image, address, phone, description } = store
 
   return (
-    <Card sx={{ display: "flex", maxHeight: 400 }}>
+    <Card sx={{ display: 'flex', maxHeight: 400 }}>
       <CardMedia
         component="img"
-        sx={{ maxWidth: 500, width: "40%" }}
+        sx={{ maxWidth: 500, width: '40%' }}
         image={image}
         alt="Live from space album cover"
       />
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <CardContent sx={{ flex: "1 0 auto" }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <CardContent sx={{ flex: '1 0 auto' }}>
           <Typography component="div" variant="h5">
             {name}
           </Typography>
@@ -149,22 +149,22 @@ const StoreHomeCard: NextPage<StoreHomeCardProps> = ({ store }) => {
             {description}
           </Typography>
         </CardContent>
-        <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}></Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}></Box>
       </Box>
     </Card>
-  );
-};
-
-interface MenuCardProps {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  description: string;
+  )
 }
 
-const MenuCard: NextPage<MenuCardProps> = menu => {
-  const { id, name, price, image, description } = menu;
+interface MenuCardProps {
+  id: string
+  name: string
+  price: number
+  image: string
+  description: string
+}
+
+const MenuCard: NextPage<MenuCardProps> = (menu) => {
+  const { id, name, price, image, description } = menu
 
   return (
     <Card>
@@ -177,7 +177,7 @@ const MenuCard: NextPage<MenuCardProps> = menu => {
             alt="green iguana"
           />
         )}
-        <CardContent sx={{ display: "flex", flexDirection: "column" }}>
+        <CardContent sx={{ display: 'flex', flexDirection: 'column' }}>
           <Typography gutterBottom variant="h5" component="div">
             {name}
           </Typography>
@@ -187,7 +187,7 @@ const MenuCard: NextPage<MenuCardProps> = menu => {
           <Typography variant="body2" color="text.secondary">
             {description}
           </Typography>
-          <Typography sx={{ textAlign: "right" }}>
+          <Typography sx={{ textAlign: 'right' }}>
             <IconButton
               href="#text-buttons"
               color="primary"
@@ -199,27 +199,27 @@ const MenuCard: NextPage<MenuCardProps> = menu => {
         </CardContent>
       </CardActionArea>
     </Card>
-  );
-};
+  )
+}
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { id }: any = params;
+  const { id }: any = params
 
-  const store = stores.find(store => store.id === id);
+  const store = stores.find((store) => store.id === id)
   const { menus }: { menus: Menu[] } = await import(
     `../../data/menus/${id}.tsx`
-  );
+  )
 
   return {
     props: {
       store,
       menus: menus.filter((menu: Menu) => menu.isAvailable),
     },
-  };
-};
+  }
+}
 
 export async function getStaticPaths() {
-  const paths = stores.map(store => ({ params: { id: store.id } }));
+  const paths = stores.map((store) => ({ params: { id: store.id } }))
 
-  return { paths, fallback: false };
+  return { paths, fallback: false }
 }
