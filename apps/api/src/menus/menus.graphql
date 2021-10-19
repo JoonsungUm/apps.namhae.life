@@ -1,0 +1,43 @@
+type Menu {
+  id: ID!
+  storeId: ID!
+  name: String!
+  price: Int!
+  description: String
+  imageUrl: String
+  isLunch: Boolean!
+  isDinner: Boolean!
+}
+
+type Query {
+  menus: [Menu]
+  menusByStore(storeId: ID!): [Menu]
+  menu(id: ID!): Menu
+}
+
+type Mutation {
+  menuCreate(menuCreateInput: MenuCreateInput!): Menu
+  menuUpdate(menuUpdateInput: MenuUpdateInput!): Menu
+  menuDelete(id: ID!): Menu
+}
+
+input MenuCreateInput {
+  storeId: ID!
+  name: String!
+  price: Int!
+  description: String
+  imageUrl: String
+  isLunch: Boolean!
+  isDinner: Boolean!
+}
+
+input MenuUpdateInput {
+  id: ID!
+  storeId: ID
+  name: String
+  price: Int
+  description: String
+  imageUrl: String
+  isLunch: Boolean
+  isDinner: Boolean
+}

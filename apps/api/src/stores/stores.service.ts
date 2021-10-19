@@ -14,20 +14,19 @@ export class StoresService {
     return await this.storeRepository.find()
   }
 
-  async findOne(id: number): Promise<Stores> {
+  async findOne(id: string): Promise<Stores> {
     return await this.storeRepository.findOne(id)
   }
 
-  async create(store: Stores): Promise<Stores> {
+  async create(store: Partial<Stores>): Promise<Stores> {
     return await this.storeRepository.save(store)
   }
 
-  async update(id: number, store: Stores): Promise<Stores> {
-    store.id = id
+  async update(store: Partial<Stores>): Promise<Stores> {
     return await this.storeRepository.save(store)
   }
 
-  async delete(id: number): Promise<Stores> {
+  async delete(id: string): Promise<Stores> {
     const store = await this.storeRepository.findOne(id)
     await this.storeRepository.delete(id)
     return store
