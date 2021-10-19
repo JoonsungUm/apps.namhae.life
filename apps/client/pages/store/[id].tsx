@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { NextPage, GetStaticProps } from "next";
-import Image from "next/image";
-import Head from "next/head";
-import { styled } from "@mui/material/styles";
-import Badge, { BadgeProps } from "@mui/material/Badge";
+import React, { useState } from 'react'
+import { NextPage, GetStaticProps } from 'next'
+import Image from 'next/image'
+import Head from 'next/head'
+import { styled } from '@mui/material/styles'
+import Badge, { BadgeProps } from '@mui/material/Badge'
 
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 
 import {
   Box,
@@ -19,49 +19,35 @@ import {
   CardActions,
   IconButton,
   Button,
-} from "@mui/material";
+} from '@mui/material'
 
-import Appbar from "../../components/Appbar";
-import OrderDrawer from "../../components/OrderDrawer";
+import Appbar from '../../components/Appbar'
+import OrderDrawer from '../../components/OrderDrawer'
 
-import { stores } from "../../data/stores";
+import { stores } from '../../data/stores'
 
-interface Store {
-  id: string;
-  name: string;
-  image: string;
-  address: string;
-  phone: string;
-  description: string;
-}
+import { Store, Menu } from '../../types'
 
-interface Menu {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  description: string;
-  isAvailable: boolean;
-}
+const BREAK_TIME = 15
 
 interface StoreProps {
-  store: Store;
-  menus: Menu[];
+  store: Store
+  menus: Menu[]
 }
 
 const StorePage: NextPage<StoreProps> = ({ store, menus }) => {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+    setMobileOpen(!mobileOpen)
+  }
 
-  const drawerWidth = 240;
+  const drawerWidth = 240
 
-  const { name, description } = store;
+  const { name, description } = store
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: 'flex' }}>
       <Head>
         <title>{name} - Namhae Life 음식점</title>
         <meta name={name} content={description} />
@@ -89,13 +75,7 @@ const StorePage: NextPage<StoreProps> = ({ store, menus }) => {
           >
             {menus.map((menu, index) => (
               <Grid key={index} item xs={4} sm={4} md={4}>
-                <MenuCard
-                  id={menu.id}
-                  name={menu.name}
-                  price={menu.price}
-                  image={menu.image}
-                  description={menu.description}
-                ></MenuCard>
+                <MenuCard menu={menu} />
               </Grid>
             ))}
           </Grid>
@@ -107,28 +87,28 @@ const StorePage: NextPage<StoreProps> = ({ store, menus }) => {
         handleDrawerToggle={handleDrawerToggle}
       />
     </Box>
-  );
-};
+  )
+}
 
-export default StorePage;
+export default StorePage
 
 interface StoreHomeCardProps {
-  store: Store;
+  store: Store
 }
 
 const StoreHomeCard: NextPage<StoreHomeCardProps> = ({ store }) => {
-  const { id, name, image, address, phone, description } = store;
+  const { id, name, image, address, phone, description } = store
 
   return (
-    <Card sx={{ display: "flex", maxHeight: 400 }}>
+    <Card sx={{ display: 'flex', maxHeight: 400 }}>
       <CardMedia
         component="img"
-        sx={{ maxWidth: 500, width: "40%" }}
+        sx={{ maxWidth: 500, width: '40%' }}
         image={image}
-        alt="Live from space album cover"
+        alt={name}
       />
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <CardContent sx={{ flex: "1 0 auto" }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <CardContent sx={{ flex: '1 0 auto' }}>
           <Typography component="div" variant="h5">
             {name}
           </Typography>
@@ -150,77 +130,82 @@ const StoreHomeCard: NextPage<StoreHomeCardProps> = ({ store }) => {
             {description}
           </Typography>
         </CardContent>
-        <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}></Box>
       </Box>
     </Card>
-  );
-};
-
-interface MenuCardProps {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  description: string;
+  )
 }
 
-const MenuCard: NextPage<MenuCardProps> = menu => {
-  const { id, name, price, image, description } = menu;
+interface MenuCardProps {
+  menu: Menu
+}
+
+const isMenuAvailable = (menu: Menu): boolean => {
+  const currentTime = new Date().getHours()
+
+  if (currentTime < BREAK_TIME) {
+    return menu.isLunch
+  } else {
+    return menu.isDinner
+  }
+}
+
+const MenuCard: NextPage<MenuCardProps> = ({ menu }) => {
+  const { id, name, price, image, description } = menu
 
   return (
     <Card>
       <CardActionArea>
         {image && (
-          <CardMedia
-            component="img"
-            height="140"
-            image={image}
-            alt="green iguana"
-          />
+          <CardMedia component="img" height="140" image={image} alt={name} />
         )}
-        <CardContent sx={{ display: "flex", flexDirection: "column" }}>
-          <Typography gutterBottom variant="h5" component="div">
+        <CardContent>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            color={isMenuAvailable(menu) ? 'text.primary' : 'text.secondary'}
+          >
             {name}
           </Typography>
-          <Typography variant="body1" component="div">
+          <Typography
+            variant="body1"
+            component="div"
+            color={isMenuAvailable(menu) ? 'text.primary' : 'text.secondary'}
+          >
             {price}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {description}
           </Typography>
-          <Typography sx={{ textAlign: "right" }}>
-            <IconButton
-              href="#text-buttons"
-              color="primary"
-              aria-label="add to shopping cart"
-            >
+          <Typography sx={{ textAlign: 'right' }}>
+            <IconButton color="primary" aria-label="add to shopping cart">
               <AddShoppingCartIcon />
             </IconButton>
           </Typography>
         </CardContent>
       </CardActionArea>
     </Card>
-  );
-};
+  )
+}
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { id }: any = params;
+  const { id }: any = params
 
-  const store = stores.find(store => store.id === id);
+  const store = stores.find((store) => store.id === id)
   const { menus }: { menus: Menu[] } = await import(
     `../../data/menus/${id}.tsx`
-  );
+  )
 
   return {
     props: {
       store,
-      menus: menus.filter((menu: Menu) => menu.isAvailable),
+      menus,
     },
-  };
-};
+  }
+}
 
 export async function getStaticPaths() {
-  const paths = stores.map(store => ({ params: { id: store.id } }));
+  const paths = stores.map((store) => ({ params: { id: store.id } }))
 
-  return { paths, fallback: false };
+  return { paths, fallback: false }
 }

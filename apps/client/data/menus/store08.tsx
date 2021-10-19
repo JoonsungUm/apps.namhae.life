@@ -1,0 +1,58 @@
+import { Menu } from '../../types'
+
+export const menus: Menu[] = [
+  {
+    id: "1",
+    name: "체다&치즈돈까스",
+    price: 11000,
+    image: "",
+    description: "(모짜렐라)치즈돈까스1pcs(2조각)+체다치즈돈까스1pcs(2조각)",
+    isLunch: true,
+    isDinner: true,
+  },
+  {
+    id: "2",
+    name: "++치즈돈까스++",
+    price: 11000,
+    image: "",
+    description: "100% 자연치즈가 입안에서 녹아내리는 치즈돈까스의 끝판왕",
+    isLunch: true,
+    isDinner: true,
+  },
+  {
+    id: "3",
+    name: "돈까스오므라이스(기본맛)",
+    price: 9500,
+    image: "",
+    description: "오므라이스는 당연히 맛있고 빠삭한 돈까스 강추",
+    isLunch: true,
+    isDinner: true,
+  },
+  {
+    id: "4",
+    name: "돈가스쫄면",
+    price: 9500,
+    image: "",
+    description: "면만 먹으면 허전할 때는 돈까스도 같이 드세요",
+    isLunch: true,
+    isDinner: true,
+  },
+  {
+    id: "5",
+    name: "로제파스타",
+    price: 7000,
+    image: "",
+    description: "토마토소스와 크림소스 중 고민될 때 선택하세요",
+    isLunch: true,
+    isDinner: true,
+  },
+  {
+    id: "6",
+    name: "김떡돈",
+    price: 9000,
+    image: "",
+    description: "심플김밥(햄/단무지/계란)+떡볶이+돈까스",
+    isLunch: true,
+    isDinner: true,
+  },
+]

@@ -1,0 +1,24 @@
+enum Holiday {
+  SUN
+  MON
+  TUE
+  THU
+  FRI
+  SAT
+  UNKNOWN
+}
+
+type Store {
+  id: String!
+  name: String!
+  imageUrl: String
+  address: String!
+  phone: String!
+  description: String
+  holidays: [Holiday]
+}
+
+type Query {
+  stores: [Store]
+  store(id: String!): Store
+}
