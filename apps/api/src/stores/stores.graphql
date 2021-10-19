@@ -9,16 +9,44 @@ enum Holiday {
 }
 
 type Store {
-  id: String!
+  id: ID!
   name: String!
   imageUrl: String
   address: String!
   phone: String!
   description: String
   holidays: [Holiday]
+  isVisible: Boolean!
 }
 
 type Query {
   stores: [Store]
-  store(id: String!): Store
+  store(id: ID!): Store
+}
+
+type Mutation {
+  storeCreate(storeCreateInput: StoreCreateInput): Store
+  storeUpdate(storeUpdateInput: StoreUpdateInput): Store
+  storeDelete(id: ID!): Store
+}
+
+input StoreCreateInput {
+  name: String!
+  imageUrl: String
+  address: String!
+  phone: String!
+  description: String
+  holidays: [Holiday]
+  isVisible: Boolean
+}
+
+input StoreUpdateInput {
+  id: ID!
+  name: String
+  imageUrl: String
+  address: String
+  phone: String
+  description: String
+  holidays: [Holiday]
+  isVisible: Boolean
 }

@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { GraphQLModule } from '@nestjs/graphql'
 import { StoresModule } from './stores/stores.module'
+import { MenusModule } from './menus/menus.module'
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { StoresModule } from './stores/stores.module'
       typePaths: ['./**/*.graphql'],
     }),
     StoresModule,
+    MenusModule,
   ],
   controllers: [AppController],
   providers: [AppService],

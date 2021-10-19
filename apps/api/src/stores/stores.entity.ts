@@ -3,13 +3,13 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 @Entity()
 export class Stores {
   @PrimaryGeneratedColumn()
-  id: number
+  id: string
 
   @Column()
   name: string
 
   @Column({ nullable: true })
-  imageURL: string
+  imageUrl: string
 
   @Column()
   address: string
@@ -25,4 +25,7 @@ export class Stores {
     nullable: true,
   })
   holidays: string[]
+
+  @Column({ default: true })
+  isVisible: boolean
 }
