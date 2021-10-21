@@ -13,6 +13,17 @@
 
 ### Client
 
+API서버 연결과 관련된 dotenv 파일이 있어야 합니다.
+
+`~/apps/client/.env` 파일을 만들고
+
+```
+NEXT_PUBLIC_API_URI="http://localhost:3000/graphql"
+
+```
+
+위 환경변수가 설정이 되어 있어야 합니다.
+
 ```bash
 ~/apps/client$ rushx dev
 ```
@@ -32,6 +43,7 @@ APP_NAMHAE_LIFE_DB_USERNAME
 APP_NAMHAE_LIFE_DB_PASSWORD
 APP_NAMHAE_LIFE_DB_NAME
 ```
+
 위 환경변수가 설정이 되어 있어야 합니다.
 
 ```bash
