@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@apollo/client': ~3.4.16
   '@emotion/react': ~11.4.1
   '@emotion/styled': ~11.3.0
   '@mui/icons-material': ~5.0.3
@@ -24,6 +25,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^4.28.2
   '@typescript-eslint/parser': ^4.28.2
   apollo-server-express: ~3.4.0
+  deepmerge: ~4.2.2
   eslint: ^7.32.0
   eslint-config-next: 11.1.2
   eslint-config-prettier: ^8.3.0
@@ -31,6 +33,7 @@ specifiers:
   eslint-plugin-prettier: ^3.4.0
   graphql: ~15.6.1
   jest: ^27.0.6
+  lodash: ~4.17.21
   next: 11.1.2
   pg: ~8.7.1
   prettier: ^2.3.2
@@ -42,12 +45,14 @@ specifiers:
   supertest: ^6.1.3
   ts-jest: ^27.0.3
   ts-loader: ^9.2.3
+  ts-morph: ~12.0.0
   ts-node: ^10.0.0
   tsconfig-paths: ^3.10.1
   typeorm: ~0.2.38
   typescript: ^4.4.3
 
 dependencies:
+  '@apollo/client': 3.4.16_graphql@15.6.1+react@17.0.2
   '@emotion/react': 11.4.1_9b26932173ac5a93c18fc8634be19f05
   '@emotion/styled': 11.3.0_83521c68fe473959abc458396e5ebb94
   '@mui/icons-material': 5.0.3_4708d87537568924a83ffdea00ac702d
@@ -56,7 +61,7 @@ dependencies:
   '@nestjs/common': 8.0.7_486826780eeff986d3746a62b5df4b6b
   '@nestjs/config': 1.0.2_462a0fad9aa92b5094b57f36a5d659b3
   '@nestjs/core': 8.0.7_89a1b2f707b1c5de9d83624ae0c6b3b1
-  '@nestjs/graphql': 9.0.6_7825a26288b4a7ace0832a599fc0dcc8
+  '@nestjs/graphql': 9.0.6_269feb25e16c33e02bed666666290e23
   '@nestjs/platform-express': 8.0.7_6ccd7f020aae0bb10815f91d7f482355
   '@nestjs/schematics': 8.0.3_typescript@4.4.3
   '@nestjs/testing': 8.0.7_8ffe6e0ad2b5133474b7368d6492ee85
@@ -71,6 +76,7 @@ dependencies:
   '@typescript-eslint/eslint-plugin': 4.31.2_3815fab247b4312be6d1f55eb1f81298
   '@typescript-eslint/parser': 4.31.2_eslint@7.32.0+typescript@4.4.3
   apollo-server-express: 3.4.0_graphql@15.6.1
+  deepmerge: 4.2.2
   eslint: 7.32.0
   eslint-config-next: 11.1.2_82ad98da5e129ae9d310451a179848d9
   eslint-config-prettier: 8.3.0_eslint@7.32.0
@@ -78,6 +84,7 @@ dependencies:
   eslint-plugin-prettier: 3.4.1_6e975bd57c7acf028c1a9ddbbf60c898
   graphql: 15.6.1
   jest: 27.2.2_ts-node@10.2.1
+  lodash: 4.17.21
   next: 11.1.2_bd7797d63db473de6e2318609a63c933
   pg: 8.7.1
   prettier: 2.4.1
@@ -89,6 +96,7 @@ dependencies:
   supertest: 6.1.6
   ts-jest: 27.0.5_1c26bd7af7c289ab64b4c561804bfe7c
   ts-loader: 9.2.6_typescript@4.4.3
+  ts-morph: 12.0.0
   ts-node: 10.2.1_48cf0e1f5c27c5317da4120390b4c470
   tsconfig-paths: 3.11.0
   typeorm: 0.2.38_pg@8.7.1
@@ -149,6 +157,34 @@ packages:
       '@angular-devkit/core': 12.1.4
       ora: 5.4.1
       rxjs: 6.6.7
+    dev: false
+
+  /@apollo/client/3.4.16_graphql@15.6.1+react@17.0.2:
+    resolution: {integrity: sha512-iF4zEYwvebkri0BZQyv8zfavPfVEafsK0wkOofa6eC2yZu50J18uTutKtC174rjHZ2eyxZ8tV7NvAPKRT+OtZw==}
+    peerDependencies:
+      graphql: ^14.0.0 || ^15.0.0
+      react: ^16.8.0 || ^17.0.0
+      subscriptions-transport-ws: ^0.9.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      subscriptions-transport-ws:
+        optional: true
+    dependencies:
+      '@graphql-typed-document-node/core': 3.1.0_graphql@15.6.1
+      '@wry/context': 0.6.1
+      '@wry/equality': 0.5.2
+      '@wry/trie': 0.3.1
+      graphql: 15.6.1
+      graphql-tag: 2.12.5_graphql@15.6.1
+      hoist-non-react-statics: 3.3.2
+      optimism: 0.16.1
+      prop-types: 15.7.2
+      react: 17.0.2
+      symbol-observable: 4.0.0
+      ts-invariant: 0.9.3
+      tslib: 2.3.1
+      zen-observable-ts: 1.1.0
     dev: false
 
   /@apollo/protobufjs/1.2.2:
@@ -795,6 +831,14 @@ packages:
       tslib: 2.3.1
     dev: false
 
+  /@graphql-typed-document-node/core/3.1.0_graphql@15.6.1:
+    resolution: {integrity: sha512-wYn6r8zVZyQJ6rQaALBEln5B1pzxb9shV5Ef97kTvn6yVGrqyXVnDqnU24MXnFubR+rZjBY9NWuxX3FB2sTsjg==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
+    dependencies:
+      graphql: 15.6.1
+    dev: false
+
   /@hapi/accept/5.0.2:
     resolution: {integrity: sha512-CmzBx/bXUR8451fnZRuZAJRlzgm0Jgu5dltTX/bszmR2lheb9BpyN47Q1RbaGTsvFzn0PXAEs+lXDKfshccYZw==}
     dependencies:
@@ -1374,59 +1418,6 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@nestjs/graphql/9.0.6_7825a26288b4a7ace0832a599fc0dcc8:
-    resolution: {integrity: sha512-ednuH135vm3X/wbObkPPz8JVOrkpocjdSRFNsBxe7VLOx8qGS1iqldIofwVMWC8CficIyb9LQdDC9Wxzlgz8gA==}
-    peerDependencies:
-      '@apollo/federation': ^0.26.0 || ^0.27.0 || ^0.29.0 || 0.33.0
-      '@apollo/gateway': ^0.29.0 || ^0.32.0 || ^0.33.0 || ^0.35.0 || ^0.38.0 || ^0.42.0
-      '@nestjs/common': ^8.0.0
-      '@nestjs/core': ^8.0.0
-      apollo-server-core: ^3.0.0
-      apollo-server-express: ^3.1.2
-      apollo-server-fastify: ^3.1.2
-      graphql: ^15.5.1
-      reflect-metadata: ^0.1.13
-      ts-morph: ^11.0.3 || ^12.0.0
-    peerDependenciesMeta:
-      '@apollo/federation':
-        optional: true
-      '@apollo/gateway':
-        optional: true
-      apollo-server-core:
-        optional: true
-      apollo-server-express:
-        optional: true
-      apollo-server-fastify:
-        optional: true
-      ts-morph:
-        optional: true
-    dependencies:
-      '@graphql-tools/merge': 6.2.5_graphql@15.6.1
-      '@graphql-tools/schema': 7.1.5_graphql@15.6.1
-      '@graphql-tools/utils': 7.10.0_graphql@15.6.1
-      '@nestjs/common': 8.0.7_486826780eeff986d3746a62b5df4b6b
-      '@nestjs/core': 8.0.7_89a1b2f707b1c5de9d83624ae0c6b3b1
-      '@nestjs/mapped-types': 1.0.0_594d3eec224d2e47be565c26d17170a0
-      apollo-server-express: 3.4.0_graphql@15.6.1
-      chokidar: 3.5.2
-      fast-glob: 3.2.7
-      graphql: 15.6.1
-      graphql-ws: 5.5.0_graphql@15.6.1
-      iterall: 1.3.0
-      lodash: 4.17.21
-      normalize-path: 3.0.0
-      reflect-metadata: 0.1.13
-      subscriptions-transport-ws: 0.9.19_graphql@15.6.1
-      tslib: 2.3.1
-      uuid: 8.3.2
-      ws: 8.2.2
-    transitivePeerDependencies:
-      - bufferutil
-      - class-transformer
-      - class-validator
-      - utf-8-validate
-    dev: false
-
   /@nestjs/mapped-types/1.0.0_594d3eec224d2e47be565c26d17170a0:
     resolution: {integrity: sha512-26AW5jHadLXtvHs+M+Agd9KZ92dDlBrmD0rORlBlvn2KvsWs4JRaKl2mUsrW7YsdZeAu3Hc4ukqyYyDdyCmMWQ==}
     peerDependencies:
@@ -1862,6 +1853,10 @@ packages:
     resolution: {integrity: sha1-7ihweulOEdK4J7y+UnC86n8+ce4=}
     dev: false
 
+  /@types/lodash/4.14.175:
+    resolution: {integrity: sha512-XmdEOrKQ8a1Y/yxQFOMbC47G/V2VDO1GvMRnl4O75M4GW/abC5tnfzadQYkqEveqRM1dEJGFFegfPNA2vvx2iw==}
+    dev: false
+
   /@types/long/4.0.1:
     resolution: {integrity: sha512-5tXH6Bx/kNGd3MgffdmP4dy2Z+G4eaXw0SE81Tq3BNadtnMR5/ySMzX4SLEzHJzSmPNn4HIdpQsBvXMUykr58w==}
     dev: false
@@ -2169,6 +2164,27 @@ packages:
     dependencies:
       '@webassemblyjs/ast': 1.11.1
       '@xtuc/long': 4.2.2
+    dev: false
+
+  /@wry/context/0.6.1:
+    resolution: {integrity: sha512-LOmVnY1iTU2D8tv4Xf6MVMZZ+juIJ87Kt/plMijjN20NMAXGmH4u8bS1t0uT74cZ5gwpocYueV58YwyI8y+GKw==}
+    engines: {node: '>=8'}
+    dependencies:
+      tslib: 2.3.1
+    dev: false
+
+  /@wry/equality/0.5.2:
+    resolution: {integrity: sha512-oVMxbUXL48EV/C0/M7gLVsoK6qRHPS85x8zECofEZOVvxGmIPLA9o5Z27cc2PoAyZz1S2VoM2A7FLAnpfGlneA==}
+    engines: {node: '>=8'}
+    dependencies:
+      tslib: 2.3.1
+    dev: false
+
+  /@wry/trie/0.3.1:
+    resolution: {integrity: sha512-WwB53ikYudh9pIorgxrkHKrQZcCqNM/Q/bDzZBffEaGUKGuHrRb3zZUT9Sh2qw9yogC7SsdRmQ1ER0pqvd3bfw==}
+    engines: {node: '>=8'}
+    dependencies:
+      tslib: 2.3.1
     dev: false
 
   /@xtuc/ieee754/1.2.0:
@@ -6236,6 +6252,13 @@ packages:
       mimic-fn: 2.1.0
     dev: false
 
+  /optimism/0.16.1:
+    resolution: {integrity: sha512-64i+Uw3otrndfq5kaoGNoY7pvOhSsjFEN4bdEFh80MWVk/dbgJfMv7VFDeCT8LxNAlEVhQmdVEbfE7X2nWNIIg==}
+    dependencies:
+      '@wry/context': 0.6.1
+      '@wry/trie': 0.3.1
+    dev: false
+
   /optional/0.1.4:
     resolution: {integrity: sha512-gtvrrCfkE08wKcgXaVwQVgwEQ8vel2dc5DDBn9RLQZ3YtmtkBss6A2HY6BnJH4N/4Ku97Ri/SF8sNWE2225WJw==}
     dev: false
@@ -7783,6 +7806,13 @@ packages:
     hasBin: true
     dev: false
 
+  /ts-invariant/0.9.3:
+    resolution: {integrity: sha512-HinBlTbFslQI0OHP07JLsSXPibSegec6r9ai5xxq/qHYCsIQbzpymLpDhAUsnXcSrDEcd0L62L8vsOEdzM0qlA==}
+    engines: {node: '>=8'}
+    dependencies:
+      tslib: 2.3.1
+    dev: false
+
   /ts-jest/27.0.5_1c26bd7af7c289ab64b4c561804bfe7c:
     resolution: {integrity: sha512-lIJApzfTaSSbtlksfFNHkWOzLJuuSm4faFAfo5kvzOiRAuoN4/eKxVJ2zEAho8aecE04qX6K1pAzfH5QHL1/8w==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
@@ -8614,21 +8644,26 @@ packages:
     dev: false
 
   file:projects/client.tgz_prettier@2.4.1:
-    resolution: {integrity: sha512-i4gBd7JEfXWhsVgRCPpWzGspZWuPVZKijkgKiWqEKxA2AZo3iFJqNU2W3o17fKW7iPxJjk0qdXz5Dr6bURbFGg==, tarball: file:projects/client.tgz}
+    resolution: {integrity: sha512-vw4b50ckz8vvXjpkmc2atnJ3seNmXe5SJmKRUdLMAaSBuxz9LRpSvfn8VG/PHXfDJSsJHSt6wvYhkJtImWssPA==, tarball: file:projects/client.tgz}
     id: file:projects/client.tgz
     name: '@rush-temp/client'
     version: 0.0.0
     dependencies:
+      '@apollo/client': 3.4.16_graphql@15.6.1+react@17.0.2
       '@emotion/react': 11.4.1_9b26932173ac5a93c18fc8634be19f05
       '@emotion/styled': 11.3.0_83521c68fe473959abc458396e5ebb94
       '@mui/icons-material': 5.0.3_4708d87537568924a83ffdea00ac702d
       '@mui/material': 5.0.1_604b72d74923f30e2e755c544d7c2813
+      '@types/lodash': 4.14.175
       '@types/react': 17.0.24
+      deepmerge: 4.2.2
       eslint: 7.32.0
       eslint-config-next: 11.1.2_82ad98da5e129ae9d310451a179848d9
       eslint-config-prettier: 8.3.0_eslint@7.32.0
       eslint-plugin-next: 0.0.0
       eslint-plugin-prettier: 3.4.1_6e975bd57c7acf028c1a9ddbbf60c898
+      graphql: 15.6.1
+      lodash: 4.17.21
       next: 11.1.2_bd7797d63db473de6e2318609a63c933
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -8639,6 +8674,7 @@ packages:
       - node-sass
       - prettier
       - sass
+      - subscriptions-transport-ws
       - supports-color
       - webpack
     dev: false
