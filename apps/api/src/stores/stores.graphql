@@ -17,6 +17,7 @@ type Store {
   description: String
   holidays: [Holiday]
   isVisible: Boolean!
+  menus: [Menu]
 }
 
 type Query {
