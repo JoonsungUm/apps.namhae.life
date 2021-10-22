@@ -1,5 +1,6 @@
 import React from 'react'
 import { NextPage } from 'next'
+import { OrderMenuCard } from './OrderMenu'
 
 import {
   Box,
@@ -9,6 +10,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  Button,
 } from '@mui/material'
 
 interface OrderDrawerProps {
@@ -25,35 +27,40 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
     <div>
       <Toolbar />
       <Box sx={{ overflow: 'auto' }}>
-        <Typography variant="h6" align="center">
-          Orders
-        </Typography>
-        <List>
-          <ListItem button key="order1">
-            <ListItemText
-              primary="주문한 음식 1"
-              sx={{ textAlign: 'center' }}
-            />
-          </ListItem>
-          <ListItem button key="order2">
-            <ListItemText
-              primary="주문한 음식 2"
-              sx={{ textAlign: 'center' }}
-            />
-          </ListItem>
-          <ListItem button key="order3">
-            <ListItemText
-              primary="주문한 음식 3"
-              sx={{ textAlign: 'center' }}
-            />
-          </ListItem>
-          <ListItem button key="order4">
-            <ListItemText
-              primary="주문한 음식 4"
-              sx={{ textAlign: 'center' }}
-            />
-          </ListItem>
-        </List>
+        <div style={{ width: '100%' }}>
+          <Box sx={{ display: 'flex', p: 1, bgcolor: 'background.paper' }}>
+            <Box
+              sx={{
+                p: 1,
+                flexGrow: 1,
+                bgcolor: 'white.200',
+                padding: '14px',
+                textAlign: 'right',
+                pt: '18px',
+                pr: '30px',
+              }}
+            >
+              장바구니
+            </Box>
+            <Box sx={{ p: 1, bgcolor: 'white.300' }}>
+              <Button
+                size="small"
+                variant="outlined"
+                sx={{
+                  fontSize: 5,
+                  width: '10px',
+                  px: 3,
+                  ml: 1,
+                  padding: '6px',
+                  mt: '6px',
+                }}
+              >
+                전체삭제
+              </Button>
+            </Box>
+          </Box>
+        </div>
+        <List>{OrderMenuCard}</List>
       </Box>
     </div>
   )
