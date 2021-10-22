@@ -6,10 +6,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint/eslint-plugin'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-  ],
+  extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
   root: true,
   env: {
     node: true,
@@ -24,9 +21,9 @@ module.exports = {
     'no-restricted-syntax': [
       'error',
       {
-        'selector': 'TSEnumDeclaration',
-        'message': 'Don\'t declare enums',
-      }
-    ]
+        selector: 'TSEnumDeclaration',
+        message: "Don't declare enums",
+      },
+    ],
   },
-};
+}

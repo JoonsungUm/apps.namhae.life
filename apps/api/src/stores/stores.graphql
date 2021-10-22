@@ -26,8 +26,8 @@ type Query {
 }
 
 type Mutation {
-  storeCreate(storeCreateInput: StoreCreateInput): Store
-  storeUpdate(storeUpdateInput: StoreUpdateInput): Store
+  storeCreate(storeCreateInput: StoreCreateInput!): Store
+  storeUpdate(storeUpdateInput: StoreUpdateInput!): Store
   storeDelete(id: ID!): Store
 }
 

@@ -81,8 +81,8 @@ export interface IMutation {
     menuCreate(menuCreateInput: MenuCreateInput): Nullable<Menu> | Promise<Nullable<Menu>>;
     menuUpdate(menuUpdateInput: MenuUpdateInput): Nullable<Menu> | Promise<Nullable<Menu>>;
     menuDelete(id: string): Nullable<Menu> | Promise<Nullable<Menu>>;
-    storeCreate(storeCreateInput?: Nullable<StoreCreateInput>): Nullable<Store> | Promise<Nullable<Store>>;
-    storeUpdate(storeUpdateInput?: Nullable<StoreUpdateInput>): Nullable<Store> | Promise<Nullable<Store>>;
+    storeCreate(storeCreateInput: StoreCreateInput): Nullable<Store> | Promise<Nullable<Store>>;
+    storeUpdate(storeUpdateInput: StoreUpdateInput): Nullable<Store> | Promise<Nullable<Store>>;
     storeDelete(id: string): Nullable<Store> | Promise<Nullable<Store>>;
 }
 
@@ -95,6 +95,7 @@ export interface Store {
     description?: Nullable<string>;
     holidays?: Nullable<Nullable<Holiday>[]>;
     isVisible: boolean;
+    menus?: Nullable<Nullable<Menu>[]>;
 }
 
 type Nullable<T> = T | null;
