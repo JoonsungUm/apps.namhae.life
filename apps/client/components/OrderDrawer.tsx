@@ -1,5 +1,6 @@
 import React from 'react'
 import { NextPage } from 'next'
+import { useQuery } from '@apollo/client'
 
 import {
   Box,
@@ -11,16 +12,23 @@ import {
   ListItemText,
 } from '@mui/material'
 
+import { ORDERS_QUERY } from '../query/OrdersQuery'
+import { Order } from '../types'
+
 interface OrderDrawerProps {
   drawerWidth: number
   mobileOpen: boolean
   handleDrawerToggle: () => void
 }
+
 const OrderDrawer: NextPage<OrderDrawerProps> = ({
   drawerWidth,
   mobileOpen,
   handleDrawerToggle,
 }) => {
+  const { loading, error, data } = useQuery(ORDERS_QUERY)
+  const { orders } = data || {}
+
   const orderDrawer = (
     <div>
       <Toolbar />
@@ -29,30 +37,18 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
           Orders
         </Typography>
         <List>
-          <ListItem button key="order1">
-            <ListItemText
-              primary="주문한 음식 1"
-              sx={{ textAlign: 'center' }}
-            />
-          </ListItem>
-          <ListItem button key="order2">
-            <ListItemText
-              primary="주문한 음식 2"
-              sx={{ textAlign: 'center' }}
-            />
-          </ListItem>
-          <ListItem button key="order3">
-            <ListItemText
-              primary="주문한 음식 3"
-              sx={{ textAlign: 'center' }}
-            />
-          </ListItem>
-          <ListItem button key="order4">
-            <ListItemText
-              primary="주문한 음식 4"
-              sx={{ textAlign: 'center' }}
-            />
-          </ListItem>
+          {orders?.map((order: Order) => (
+            <ListItem button key={order.id}>
+              <ListItemText
+                primary={order.menu.name}
+                sx={{ textAlign: 'center' }}
+              />
+              <ListItemText
+                secondary={order.menu.price}
+                sx={{ textAlign: 'center' }}
+              />
+            </ListItem>
+          ))}
         </List>
       </Box>
     </div>

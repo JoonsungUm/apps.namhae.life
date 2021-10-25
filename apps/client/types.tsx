@@ -17,3 +17,13 @@ export interface Menu {
   isLunch: boolean
   isDinner: boolean
 }
+
+export interface Order {
+  id: string
+  storeId: string
+  menuId: string
+  description: string
+  isInCart: boolean
+  isPaid: boolean
+  menu: Menu
+}

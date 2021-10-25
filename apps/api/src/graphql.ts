@@ -1,3 +1,4 @@
+
 /*
  * -------------------------------------------------------
  * THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
@@ -37,6 +38,25 @@ export interface MenuUpdateInput {
     isDinner?: Nullable<boolean>;
 }
 
+export interface OrderCreateInput {
+    storeId?: Nullable<string>;
+    menuId: string;
+    userId?: Nullable<string>;
+    description?: Nullable<string>;
+    isInCart: boolean;
+    isPaid: boolean;
+}
+
+export interface OrderUpdateInput {
+    id: string;
+    storeId?: Nullable<string>;
+    menuId?: Nullable<string>;
+    userId?: Nullable<string>;
+    description?: Nullable<string>;
+    isInCart?: Nullable<boolean>;
+    isPaid?: Nullable<boolean>;
+}
+
 export interface StoreCreateInput {
     name: string;
     imageUrl?: Nullable<string>;
@@ -73,6 +93,10 @@ export interface IQuery {
     menus(): Nullable<Nullable<Menu>[]> | Promise<Nullable<Nullable<Menu>[]>>;
     menusByStore(storeId: string): Nullable<Nullable<Menu>[]> | Promise<Nullable<Nullable<Menu>[]>>;
     menu(id: string): Nullable<Menu> | Promise<Nullable<Menu>>;
+    orders(): Nullable<Nullable<Order>[]> | Promise<Nullable<Nullable<Order>[]>>;
+    ordersByStore(storeId: string): Nullable<Nullable<Order>[]> | Promise<Nullable<Nullable<Order>[]>>;
+    ordersByUser(userId: string): Nullable<Nullable<Order>[]> | Promise<Nullable<Nullable<Order>[]>>;
+    order(id: string): Nullable<Order> | Promise<Nullable<Order>>;
     stores(): Nullable<Nullable<Store>[]> | Promise<Nullable<Nullable<Store>[]>>;
     store(id: string): Nullable<Store> | Promise<Nullable<Store>>;
 }
@@ -81,9 +105,25 @@ export interface IMutation {
     menuCreate(menuCreateInput: MenuCreateInput): Nullable<Menu> | Promise<Nullable<Menu>>;
     menuUpdate(menuUpdateInput: MenuUpdateInput): Nullable<Menu> | Promise<Nullable<Menu>>;
     menuDelete(id: string): Nullable<Menu> | Promise<Nullable<Menu>>;
+    orderCreate(orderCreateInput: OrderCreateInput): Nullable<Order> | Promise<Nullable<Order>>;
+    orderUpdate(orderUpdateInput: OrderUpdateInput): Nullable<Order> | Promise<Nullable<Order>>;
+    orderDelete(id: string): Nullable<Order> | Promise<Nullable<Order>>;
     storeCreate(storeCreateInput: StoreCreateInput): Nullable<Store> | Promise<Nullable<Store>>;
     storeUpdate(storeUpdateInput: StoreUpdateInput): Nullable<Store> | Promise<Nullable<Store>>;
     storeDelete(id: string): Nullable<Store> | Promise<Nullable<Store>>;
+}
+
+export interface Order {
+    id: string;
+    storeId?: Nullable<string>;
+    menuId: string;
+    userId?: Nullable<string>;
+    description?: Nullable<string>;
+    isInCart: boolean;
+    isPaid: boolean;
+    createdAt?: Nullable<Date>;
+    updatedAt?: Nullable<Date>;
+    menu?: Nullable<Menu>;
 }
 
 export interface Store {
