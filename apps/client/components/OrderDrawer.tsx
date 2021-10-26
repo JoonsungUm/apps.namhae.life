@@ -1,30 +1,20 @@
 import React from 'react'
 import { NextPage } from 'next'
 import { useQuery } from '@apollo/client'
-import { OrderMenuCard } from './OrderMenu'
+import { OrderMenuCard } from './OrderMenuCard'
 
-import {
-  Box,
-  Toolbar,
-  Typography,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  Button,
-} from '@mui/material'
+import { Box, Toolbar, Drawer, List, Button } from '@mui/material'
 
 import { ORDERS_QUERY } from '../query/OrdersQuery'
-import { Order } from '../types'
+import { Order } from '../common/types'
+import { DRAWER_WIDTH } from '../common/const'
 
 interface OrderDrawerProps {
-  drawerWidth: number
   mobileOpen: boolean
   handleDrawerToggle: () => void
 }
 
 const OrderDrawer: NextPage<OrderDrawerProps> = ({
-  drawerWidth,
   mobileOpen,
   handleDrawerToggle,
 }) => {
@@ -67,22 +57,12 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
               </Button>
             </Box>
           </Box>
-        </div>{' '}
+        </div>
         <List>
           {orders?.map((order: Order) => (
-            <ListItem button key={order.id}>
-              <ListItemText
-                primary={order.menu.name}
-                sx={{ textAlign: 'center' }}
-              />
-              <ListItemText
-                secondary={order.menu.price}
-                sx={{ textAlign: 'center' }}
-              />
-            </ListItem>
+            <OrderMenuCard key={order.id} order={order} />
           ))}
         </List>
-        <List>{OrderMenuCard}</List>
         <Box sx={{ display: 'flex', p: 1, bgcolor: 'background.paper' }}>
           <Button
             size="small"
@@ -122,13 +102,8 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
   )
 
   return (
-    <Box
-      component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-      aria-label="order lists"
-    >
+    <Box component="nav" aria-label="order lists">
       <Drawer
-        // container={container}
         variant="temporary"
         anchor="right"
         open={mobileOpen}
@@ -137,20 +112,11 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
           keepMounted: true, // Better open performance on mobile.
         }}
         sx={{
-          display: { xs: 'block', sm: 'none' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          '& .MuiDrawer-paper': {
+            boxSizing: 'border-box',
+            width: DRAWER_WIDTH,
+          },
         }}
-      >
-        {orderDrawer}
-      </Drawer>
-      <Drawer
-        anchor="right"
-        variant="temporary"
-        sx={{
-          display: { xs: 'none', sm: 'block' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-        }}
-        open
       >
         {orderDrawer}
       </Drawer>

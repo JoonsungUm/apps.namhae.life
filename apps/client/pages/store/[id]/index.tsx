@@ -3,7 +3,7 @@ import { NextPage, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-import { initializeApollo, addApolloState } from '../../lib/apolloClient'
+import { initializeApollo, addApolloState } from '../../../lib/apolloClient'
 import { gql, useQuery, useMutation } from '@apollo/client'
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
@@ -20,14 +20,15 @@ import {
   IconButton,
 } from '@mui/material'
 
-import Appbar from '../../components/Appbar'
-import OrderDrawer from '../../components/OrderDrawer'
+import Appbar from '../../../components/Appbar'
+import OrderDrawer from '../../../components/OrderDrawer'
 
-import { Store, Menu } from '../../types'
-import { ORDER_CREATE_MUTATION } from '../../query/OrderCreateMutation'
-import { STORE_QUERY } from '../../query/StoreQuery'
-
-const BREAK_TIME = 15
+import { Store, Menu } from '../../../common/types'
+import { ORDER_CREATE_MUTATION } from '../../../query/OrderCreateMutation'
+import { STORE_QUERY } from '../../../query/StoreQuery'
+import { BREAK_TIME } from '../../../common/const'
+import StoreHomeCard from '../../../components/StoreHomeCard'
+import Link from 'next/link'
 
 const StorePage: NextPage = () => {
   const router = useRouter()
@@ -45,8 +46,6 @@ const StorePage: NextPage = () => {
     setMobileOpen(!mobileOpen)
   }
 
-  const drawerWidth = 240
-
   const { name, description, menus } = store || {}
 
   return (
@@ -57,11 +56,7 @@ const StorePage: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Appbar
-        title={name}
-        drawerWidth={drawerWidth}
-        handleDrawerToggle={handleDrawerToggle}
-      />
+      <Appbar title={name} handleDrawerToggle={handleDrawerToggle} />
 
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
@@ -79,14 +74,13 @@ const StorePage: NextPage = () => {
             {menus &&
               menus.map((menu: Menu, index: number) => (
                 <Grid key={index} item xs={4} sm={4} md={4}>
-                  <MenuCard menu={menu} />
+                  <MenuCard storeId={id as string} menu={menu} />
                 </Grid>
               ))}
           </Grid>
         </Box>
       </Box>
       <OrderDrawer
-        drawerWidth={drawerWidth}
         mobileOpen={mobileOpen}
         handleDrawerToggle={handleDrawerToggle}
       />
@@ -96,50 +90,8 @@ const StorePage: NextPage = () => {
 
 export default StorePage
 
-interface StoreHomeCardProps {
-  store: Store
-}
-
-const StoreHomeCard: NextPage<StoreHomeCardProps> = ({ store }) => {
-  const { name, imageUrl, address, phone, description } = store || {}
-
-  return (
-    <Card sx={{ display: 'flex', maxHeight: 400 }}>
-      <CardMedia
-        component="img"
-        sx={{ maxWidth: 500, width: '40%' }}
-        image={imageUrl}
-        alt={name}
-      />
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <CardContent sx={{ flex: '1 0 auto' }}>
-          <Typography component="div" variant="h5">
-            {name}
-          </Typography>
-          <Typography
-            variant="subtitle2"
-            color="text.secondary"
-            component="div"
-          >
-            주소: {address}
-          </Typography>
-          <Typography
-            variant="subtitle2"
-            color="text.secondary"
-            component="div"
-          >
-            전화번호: {phone}
-          </Typography>
-          <Typography variant="body1" color="text.secondary" component="div">
-            {description}
-          </Typography>
-        </CardContent>
-      </Box>
-    </Card>
-  )
-}
-
 interface MenuCardProps {
+  storeId: string
   menu: Menu
 }
 
@@ -153,8 +105,8 @@ const isMenuAvailable = (menu: Menu): boolean => {
   }
 }
 
-const MenuCard: NextPage<MenuCardProps> = ({ menu }) => {
-  const { name, price, imageUrl, description } = menu || {}
+const MenuCard: NextPage<MenuCardProps> = ({ storeId, menu }) => {
+  const { id, name, price, imageUrl, description } = menu || {}
 
   const [order, { loading, error }] = useMutation(ORDER_CREATE_MUTATION, {
     variables: {
@@ -177,40 +129,55 @@ const MenuCard: NextPage<MenuCardProps> = ({ menu }) => {
 
   return (
     <Card>
-      <CardActionArea>
-        {imageUrl && (
-          <CardMedia component="img" height="140" image={imageUrl} alt={name} />
-        )}
-        <CardContent>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            color={isMenuAvailable(menu) ? 'text.primary' : 'text.secondary'}
-          >
-            {name}
-          </Typography>
-          <Typography
-            variant="body1"
-            component="div"
-            color={isMenuAvailable(menu) ? 'text.primary' : 'text.secondary'}
-          >
-            {price}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {description}
-          </Typography>
-          <Typography sx={{ textAlign: 'right' }}>
-            <IconButton
-              color="primary"
-              aria-label="add to shopping cart"
-              onClick={() => order()}
+      <Link href={`/store/${storeId}/menu/${id}`} passHref>
+        <CardActionArea
+          onClick={() => {
+            console.log('click')
+          }}
+        >
+          {imageUrl && (
+            <CardMedia
+              component="img"
+              height="140"
+              image={imageUrl}
+              alt={name}
+            />
+          )}
+          <CardContent>
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              color={isMenuAvailable(menu) ? 'text.primary' : 'text.secondary'}
             >
-              <AddShoppingCartIcon />
-            </IconButton>
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+              {name}
+            </Typography>
+            <Typography
+              variant="body1"
+              component="div"
+              color={isMenuAvailable(menu) ? 'text.primary' : 'text.secondary'}
+            >
+              {price}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {description}
+            </Typography>
+            <Typography sx={{ textAlign: 'right' }}>
+              <IconButton
+                color="primary"
+                aria-label="add to shopping cart"
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  order()
+                }}
+              >
+                <AddShoppingCartIcon />
+              </IconButton>
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Link>
     </Card>
   )
 }
