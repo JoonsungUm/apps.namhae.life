@@ -1,5 +1,6 @@
 import React from 'react'
 import { NextPage } from 'next'
+import { useQuery } from '@apollo/client'
 import { OrderMenuCard } from './OrderMenu'
 
 import {
@@ -13,16 +14,23 @@ import {
   Button,
 } from '@mui/material'
 
+import { ORDERS_QUERY } from '../query/OrdersQuery'
+import { Order } from '../types'
+
 interface OrderDrawerProps {
   drawerWidth: number
   mobileOpen: boolean
   handleDrawerToggle: () => void
 }
+
 const OrderDrawer: NextPage<OrderDrawerProps> = ({
   drawerWidth,
   mobileOpen,
   handleDrawerToggle,
 }) => {
+  const { loading, error, data } = useQuery(ORDERS_QUERY)
+  const { orders } = data || {}
+
   const orderDrawer = (
     <div>
       <Toolbar />
@@ -59,7 +67,21 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
               </Button>
             </Box>
           </Box>
-        </div>
+        </div>{' '}
+        <List>
+          {orders?.map((order: Order) => (
+            <ListItem button key={order.id}>
+              <ListItemText
+                primary={order.menu.name}
+                sx={{ textAlign: 'center' }}
+              />
+              <ListItemText
+                secondary={order.menu.price}
+                sx={{ textAlign: 'center' }}
+              />
+            </ListItem>
+          ))}
+        </List>
         <List>{OrderMenuCard}</List>
         <Box sx={{ display: 'flex', p: 1, bgcolor: 'background.paper' }}>
           <Button

@@ -18,18 +18,21 @@ export class StoresResolver {
   }
 
   @Mutation()
-  async storeCreate(
-    @Args('storeCreateInput') args: StoreCreateInput,
-  ): Promise<Store> {
+  async storeCreate(@Args('storeCreateInput') args: StoreCreateInput): Promise<Store> {
     const createdStore = await this.storesService.create(args)
     return convertHolidays(createdStore)
   }
 
   @Mutation()
-  async storeUpdate(
-    @Args('menuUpdateInput') args: StoreUpdateInput,
-  ): Promise<Store> {
-    const updatedStore = await this.storesService.update(args)
+  async storeUpdate(@Args('storeUpdateInput') args: StoreUpdateInput): Promise<Store> {
+    const { id, ...rest } = args
+    let store = await this.storesService.findOne(id)
+    store = {
+      ...store,
+      ...rest,
+    }
+
+    const updatedStore = await this.storesService.update(store)
     return convertHolidays(updatedStore)
   }
 

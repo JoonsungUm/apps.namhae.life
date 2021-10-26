@@ -22,18 +22,21 @@ export class MenusResolver {
   }
 
   @Mutation()
-  async menuCreate(
-    @Args('menuCreateInput') args: MenuCreateInput,
-  ): Promise<Menu> {
+  async menuCreate(@Args('menuCreateInput') args: MenuCreateInput): Promise<Menu> {
     const createdMenu = await this.menusService.create(args)
     return createdMenu
   }
 
   @Mutation()
-  async menuUpdate(
-    @Args('menuUpdateInput') args: MenuUpdateInput,
-  ): Promise<Menu> {
-    const updatedMenu = await this.menusService.update(args)
+  async menuUpdate(@Args('menuUpdateInput') args: MenuUpdateInput): Promise<Menu> {
+    const { id, ...rest } = args
+    let menu = await this.menusService.findOne(id)
+    menu = {
+      ...menu,
+      ...rest,
+    }
+
+    const updatedMenu = await this.menusService.update(menu)
     return updatedMenu
   }
 

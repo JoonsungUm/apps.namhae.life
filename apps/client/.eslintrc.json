@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "plugin:prettier/recommended"
-  ],
+  "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
   "rules": {
     "no-restricted-syntax": [
       "error",
@@ -10,6 +7,12 @@
         "selector": "TSEnumDeclaration",
         "message": "Don't declare enums"
       }
-    ]
+    ],
+    "@next/next/no-html-link-for-pages": ["error", "./apps/client/pages"]
+  },
+  "settings": {
+    "next": {
+      "rootDir": "./apps/client/"
+    }
   }
 }

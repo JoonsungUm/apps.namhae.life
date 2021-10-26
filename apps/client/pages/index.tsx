@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
-import type { NextPage } from 'next'
+import type { NextPage, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import { styled } from '@mui/material/styles'
-import Badge, { BadgeProps } from '@mui/material/Badge'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 
 import {
   Toolbar,
@@ -15,17 +12,21 @@ import {
   CardContent,
   CardMedia,
   CardActionArea,
-  CardActions,
-  Button,
 } from '@mui/material'
 
 import Appbar from '../components/Appbar'
 import OrderDrawer from '../components/OrderDrawer'
 
-import { stores } from '../data/stores'
+import { initializeApollo, addApolloState } from '../lib/apolloClient'
+import { useQuery } from '@apollo/client'
+import { Store } from '../types'
+import { STORES_QUERY } from '../query/StoresQuery'
 
 const Home: NextPage = () => {
   const [mobileOpen, setMobileOpen] = useState(false)
+
+  const { loading, error, data } = useQuery(STORES_QUERY)
+  const { stores } = data || {}
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
@@ -54,12 +55,12 @@ const Home: NextPage = () => {
           spacing={{ xs: 2, sm: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
-          {stores.map((store, index) => (
+          {stores?.map((store: Store, index: number) => (
             <Grid key={index} item xs={4} sm={4} md={4}>
               <StoreCard
                 id={store.id}
                 name={store.name}
-                image={store.image ? store.image : '/vercel.svg'}
+                imageUrl={store.imageUrl ? store.imageUrl : '/vercel.svg'}
                 description={store.description}
               />
             </Grid>
@@ -81,18 +82,18 @@ export default Home
 interface StoreCardProps {
   id: string
   name: string
-  image: string
+  imageUrl: string
   description: string
 }
 
-const StoreCard: NextPage<StoreCardProps> = (stores) => {
-  const { id, name, image, description } = stores
+const StoreCard: NextPage<StoreCardProps> = (store) => {
+  const { id, name, imageUrl, description } = store
 
   return (
     <Link href={`/store/${id}`} passHref>
       <Card>
         <CardActionArea>
-          <CardMedia component="img" height="140" image={image} alt={name} />
+          <CardMedia component="img" height="140" image={imageUrl} alt={name} />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {name}
@@ -105,4 +106,17 @@ const StoreCard: NextPage<StoreCardProps> = (stores) => {
       </Card>
     </Link>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const apolloClient = initializeApollo()
+
+  await apolloClient.query({
+    query: STORES_QUERY,
+  })
+
+  return addApolloState(apolloClient, {
+    props: {},
+    revalidate: 10,
+  })
 }

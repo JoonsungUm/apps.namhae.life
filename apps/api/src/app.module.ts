@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { GraphQLModule } from '@nestjs/graphql'
 import { StoresModule } from './stores/stores.module'
 import { MenusModule } from './menus/menus.module'
+import { OrdersModule } from './orders/orders.module'
 
 @Module({
   imports: [
@@ -15,9 +16,7 @@ import { MenusModule } from './menus/menus.module'
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.APP_NAMHAE_LIFE_DB_HOST,
-      port: process.env.APP_NAMHAE_LIFE_DB_PORT
-        ? parseInt(process.env.APP_NAMHAE_LIFE_DB_PORT)
-        : 5432,
+      port: process.env.APP_NAMHAE_LIFE_DB_PORT ? parseInt(process.env.APP_NAMHAE_LIFE_DB_PORT) : 5432,
       username: process.env.APP_NAMHAE_LIFE_DB_USERNAME,
       password: process.env.APP_NAMHAE_LIFE_DB_PASSWORD,
       database: process.env.APP_NAMHAE_LIFE_DB_NAME,
@@ -30,6 +29,7 @@ import { MenusModule } from './menus/menus.module'
     }),
     StoresModule,
     MenusModule,
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

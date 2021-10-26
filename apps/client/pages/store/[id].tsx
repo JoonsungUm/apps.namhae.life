@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { NextPage, GetStaticProps } from 'next'
-import Image from 'next/image'
 import Head from 'next/head'
-import { styled } from '@mui/material/styles'
-import Badge, { BadgeProps } from '@mui/material/Badge'
+import { useRouter } from 'next/router'
+
+import { initializeApollo, addApolloState } from '../../lib/apolloClient'
+import { gql, useQuery, useMutation } from '@apollo/client'
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 
@@ -16,27 +17,29 @@ import {
   CardContent,
   CardMedia,
   CardActionArea,
-  CardActions,
   IconButton,
-  Button,
 } from '@mui/material'
 
 import Appbar from '../../components/Appbar'
 import OrderDrawer from '../../components/OrderDrawer'
 
-import { stores } from '../../data/stores'
-
 import { Store, Menu } from '../../types'
+import { ORDER_CREATE_MUTATION } from '../../query/OrderCreateMutation'
+import { STORE_QUERY } from '../../query/StoreQuery'
 
 const BREAK_TIME = 15
 
-interface StoreProps {
-  store: Store
-  menus: Menu[]
-}
+const StorePage: NextPage = () => {
+  const router = useRouter()
+  const { id } = router.query
 
-const StorePage: NextPage<StoreProps> = ({ store, menus }) => {
   const [mobileOpen, setMobileOpen] = useState(false)
+
+  const { loading, error, data } = useQuery(STORE_QUERY, {
+    variables: { id },
+    notifyOnNetworkStatusChange: true,
+  })
+  const { store } = data || {}
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
@@ -44,7 +47,7 @@ const StorePage: NextPage<StoreProps> = ({ store, menus }) => {
 
   const drawerWidth = 240
 
-  const { name, description } = store
+  const { name, description, menus } = store || {}
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -73,11 +76,12 @@ const StorePage: NextPage<StoreProps> = ({ store, menus }) => {
             spacing={{ xs: 2, sm: 3 }}
             columns={{ xs: 4, sm: 8, md: 12 }}
           >
-            {menus.map((menu, index) => (
-              <Grid key={index} item xs={4} sm={4} md={4}>
-                <MenuCard menu={menu} />
-              </Grid>
-            ))}
+            {menus &&
+              menus.map((menu: Menu, index: number) => (
+                <Grid key={index} item xs={4} sm={4} md={4}>
+                  <MenuCard menu={menu} />
+                </Grid>
+              ))}
           </Grid>
         </Box>
       </Box>
@@ -97,14 +101,14 @@ interface StoreHomeCardProps {
 }
 
 const StoreHomeCard: NextPage<StoreHomeCardProps> = ({ store }) => {
-  const { id, name, image, address, phone, description } = store
+  const { name, imageUrl, address, phone, description } = store || {}
 
   return (
     <Card sx={{ display: 'flex', maxHeight: 400 }}>
       <CardMedia
         component="img"
         sx={{ maxWidth: 500, width: '40%' }}
-        image={image}
+        image={imageUrl}
         alt={name}
       />
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -150,13 +154,32 @@ const isMenuAvailable = (menu: Menu): boolean => {
 }
 
 const MenuCard: NextPage<MenuCardProps> = ({ menu }) => {
-  const { id, name, price, image, description } = menu
+  const { name, price, imageUrl, description } = menu || {}
+
+  const [order, { loading, error }] = useMutation(ORDER_CREATE_MUTATION, {
+    variables: {
+      orderCreateInput: {
+        menuId: menu.id,
+        isInCart: true,
+        isPaid: false,
+      },
+    },
+    update(cache, { data: { orderCreate } }) {
+      cache.modify({
+        fields: {
+          orders(existingOrders = []) {
+            return [...existingOrders, orderCreate]
+          },
+        },
+      })
+    },
+  })
 
   return (
     <Card>
       <CardActionArea>
-        {image && (
-          <CardMedia component="img" height="140" image={image} alt={name} />
+        {imageUrl && (
+          <CardMedia component="img" height="140" image={imageUrl} alt={name} />
         )}
         <CardContent>
           <Typography
@@ -178,7 +201,11 @@ const MenuCard: NextPage<MenuCardProps> = ({ menu }) => {
             {description}
           </Typography>
           <Typography sx={{ textAlign: 'right' }}>
-            <IconButton color="primary" aria-label="add to shopping cart">
+            <IconButton
+              color="primary"
+              aria-label="add to shopping cart"
+              onClick={() => order()}
+            >
               <AddShoppingCartIcon />
             </IconButton>
           </Typography>
@@ -189,23 +216,40 @@ const MenuCard: NextPage<MenuCardProps> = ({ menu }) => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const apolloClient = initializeApollo()
   const { id }: any = params
 
-  const store = stores.find((store) => store.id === id)
-  const { menus }: { menus: Menu[] } = await import(
-    `../../data/menus/${id}.tsx`
-  )
+  const storeQueryVariables = { id }
 
-  return {
-    props: {
-      store,
-      menus,
-    },
-  }
+  const data = await apolloClient.query({
+    query: STORE_QUERY,
+    variables: storeQueryVariables,
+    notifyOnNetworkStatusChange: true,
+  })
+
+  return addApolloState(apolloClient, {
+    props: {},
+    revalidate: 10,
+  })
 }
 
+const STORE_COUNT_QUERY = gql`
+  query StoreCount {
+    stores {
+      id
+    }
+  }
+`
+
 export async function getStaticPaths() {
-  const paths = stores.map((store) => ({ params: { id: store.id } }))
+  const apolloClient = initializeApollo()
+
+  const data = await apolloClient.query({
+    query: STORE_COUNT_QUERY,
+  })
+
+  const { stores } = data.data
+  const paths = stores.map((store: Store) => ({ params: { id: store.id } }))
 
   return { paths, fallback: false }
 }

@@ -1,7 +1,7 @@
 export interface Store {
   id: string
   name: string
-  image: string
+  imageUrl: string
   address: string
   phone: string
   description: string
@@ -13,7 +13,17 @@ export interface Menu {
   name: string
   price: number
   description: string
-  image: string
+  imageUrl: string
   isLunch: boolean
   isDinner: boolean
+}
+
+export interface Order {
+  id: string
+  storeId: string
+  menuId: string
+  description: string
+  isInCart: boolean
+  isPaid: boolean
+  menu: Menu
 }
