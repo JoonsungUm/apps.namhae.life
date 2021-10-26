@@ -18,19 +18,9 @@ import Appbar from '../components/Appbar'
 import OrderDrawer from '../components/OrderDrawer'
 
 import { initializeApollo, addApolloState } from '../lib/apolloClient'
-import { gql, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { Store } from '../types'
-
-const STORES_QUERY = gql`
-  query Stores {
-    stores {
-      id
-      name
-      imageUrl
-      description
-    }
-  }
-`
+import { STORES_QUERY } from '../query/StoresQuery'
 
 const Home: NextPage = () => {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -65,17 +55,16 @@ const Home: NextPage = () => {
           spacing={{ xs: 2, sm: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
-          {stores &&
-            stores.map((store: Store, index: number) => (
-              <Grid key={index} item xs={4} sm={4} md={4}>
-                <StoreCard
-                  id={store.id}
-                  name={store.name}
-                  imageUrl={store.imageUrl ? store.imageUrl : '/vercel.svg'}
-                  description={store.description}
-                />
-              </Grid>
-            ))}
+          {stores?.map((store: Store, index: number) => (
+            <Grid key={index} item xs={4} sm={4} md={4}>
+              <StoreCard
+                id={store.id}
+                name={store.name}
+                imageUrl={store.imageUrl ? store.imageUrl : '/vercel.svg'}
+                description={store.description}
+              />
+            </Grid>
+          ))}
         </Grid>
       </Box>
 

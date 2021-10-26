@@ -1,0 +1,46 @@
+scalar Date
+
+type Order {
+  id: ID!
+  storeId: ID
+  menuId: ID!
+  userId: ID
+  description: String
+  isInCart: Boolean!
+  isPaid: Boolean!
+  createdAt: Date
+  updatedAt: Date
+  menu: Menu
+}
+
+type Query {
+  orders: [Order]
+  ordersByStore(storeId: ID!): [Order]
+  ordersByUser(userId: ID!): [Order]
+  order(id: ID!): Order
+}
+
+type Mutation {
+  orderCreate(orderCreateInput: OrderCreateInput!): Order
+  orderUpdate(orderUpdateInput: OrderUpdateInput!): Order
+  orderDelete(id: ID!): Order
+}
+
+input OrderCreateInput {
+  storeId: ID
+  menuId: ID!
+  userId: ID
+  description: String
+  isInCart: Boolean!
+  isPaid: Boolean!
+}
+
+input OrderUpdateInput {
+  id: ID!
+  storeId: ID
+  menuId: ID
+  userId: ID
+  description: String
+  isInCart: Boolean
+  isPaid: Boolean
+}

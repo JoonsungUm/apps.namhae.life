@@ -4,7 +4,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 
 import { initializeApollo, addApolloState } from '../../lib/apolloClient'
-import { gql, useQuery } from '@apollo/client'
+import { gql, useQuery, useMutation } from '@apollo/client'
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 
@@ -24,6 +24,8 @@ import Appbar from '../../components/Appbar'
 import OrderDrawer from '../../components/OrderDrawer'
 
 import { Store, Menu } from '../../types'
+import { ORDER_CREATE_MUTATION } from '../../query/OrderCreateMutation'
+import { STORE_QUERY } from '../../query/StoreQuery'
 
 const BREAK_TIME = 15
 
@@ -154,6 +156,25 @@ const isMenuAvailable = (menu: Menu): boolean => {
 const MenuCard: NextPage<MenuCardProps> = ({ menu }) => {
   const { name, price, imageUrl, description } = menu || {}
 
+  const [order, { loading, error }] = useMutation(ORDER_CREATE_MUTATION, {
+    variables: {
+      orderCreateInput: {
+        menuId: menu.id,
+        isInCart: true,
+        isPaid: false,
+      },
+    },
+    update(cache, { data: { orderCreate } }) {
+      cache.modify({
+        fields: {
+          orders(existingOrders = []) {
+            return [...existingOrders, orderCreate]
+          },
+        },
+      })
+    },
+  })
+
   return (
     <Card>
       <CardActionArea>
@@ -180,7 +201,11 @@ const MenuCard: NextPage<MenuCardProps> = ({ menu }) => {
             {description}
           </Typography>
           <Typography sx={{ textAlign: 'right' }}>
-            <IconButton color="primary" aria-label="add to shopping cart">
+            <IconButton
+              color="primary"
+              aria-label="add to shopping cart"
+              onClick={() => order()}
+            >
               <AddShoppingCartIcon />
             </IconButton>
           </Typography>
@@ -189,28 +214,6 @@ const MenuCard: NextPage<MenuCardProps> = ({ menu }) => {
     </Card>
   )
 }
-
-const STORE_QUERY = gql`
-  query Store($id: ID!) {
-    store(id: $id) {
-      id
-      name
-      description
-      imageUrl
-      address
-      phone
-      menus {
-        id
-        name
-        price
-        imageUrl
-        description
-        isLunch
-        isDinner
-      }
-    }
-  }
-`
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const apolloClient = initializeApollo()
