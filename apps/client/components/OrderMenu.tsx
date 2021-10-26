@@ -1,7 +1,12 @@
 import React from 'react'
 import { styled } from '@mui/material/styles'
-import { Grid, Paper, ListItem } from '@mui/material'
-
+import { Box, Paper, Card, CardContent } from '@mui/material'
+import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
+import DeleteIcon from '@mui/icons-material/Delete'
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
+import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone'
 // import { NextPage } from 'next'
 // import MenuIcon from '@mui/icons-material/Menu'
 
@@ -35,26 +40,44 @@ const Item = styled(Paper)(({ theme }) => ({
 }))
 
 const OrderMenuCard = (
-  <div>
-    <ListItem key="order1">
-      <Grid container spacing={2}>
-        <Grid item xs={8}>
-          <Item>xs=8</Item>
+  <Card sx={{ mx: 2, my: 0.5 }}>
+    <CardContent>
+      <Typography sx={{ textAlign: 'right' }}>
+        <DeleteIcon />
+      </Typography>
+      <div style={{ width: '100%' }}>
+        <Grid container sx={{ color: 'text.primary' }}>
+          <Grid item xs={4}>
+            <Typography>음식명</Typography>
+            <Typography>가격</Typography>
+            <Typography>총합</Typography>
+          </Grid>
+          <Grid item xs={8} sx={{ pl: '20px' }}>
+            <Typography>
+              <Box style={{ width: '100%' }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    p: 1,
+                  }}
+                ></Box>
+              </Box>
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item xs={4}>
-          <Item>xs=4</Item>
-        </Grid>
-        <Grid item xs={4}>
-          <Item>xs=4</Item>
-        </Grid>
-        <Grid item xs={8}>
-          <Item>xs=8</Item>
-        </Grid>
-      </Grid>
-    </ListItem>
-  </div>
+      </div>
+    </CardContent>
+  </Card>
 )
-// return OrderMenuCard
-// }
+
+// return OrderMenuCard {}
+
+/*50번째 줄아래 삭제버튼*/
+/*  <DeleteIcon /> */
+
+/* 메뉴개수추가버튼 */
+/* <Box sx={{ p: 1, order: 1, borderRadius: 16 }}>+</Box> */
+/* <Box sx={{ p: 1, order: 2 }}>1</Box> */
+/* <Box sx={{ p: 1, order: 3, borderRadius: 16 }}>-</Box> */
 
 export { OrderMenuCard }
