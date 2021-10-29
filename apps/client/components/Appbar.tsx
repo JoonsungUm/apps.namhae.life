@@ -3,7 +3,9 @@ import { NextPage } from 'next'
 
 import { Box, AppBar, Toolbar, Typography, IconButton } from '@mui/material'
 
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import MenuIcon from '@mui/icons-material/Menu'
+
 import { DRAWER_WIDTH } from '../common/const'
 
 interface AppbarProps {
@@ -22,7 +24,10 @@ const Appbar: NextPage<AppbarProps> = ({ title, handleDrawerToggle }) => {
         }}
       >
         <Toolbar sx={{ width: '100%' }}>
-          <Typography variant="h6" noWrap component="div">
+          <IconButton href="/" sx={{ pr: 1 }}>
+            <ArrowBackIosNewIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div" sx={{ pl: 1 }}>
             {title}
           </Typography>
 

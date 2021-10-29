@@ -3,11 +3,12 @@ import { NextPage } from 'next'
 import { useQuery } from '@apollo/client'
 import { OrderMenuCard } from './OrderMenuCard'
 
-import { Box, Toolbar, Drawer, List, Button } from '@mui/material'
-
+import { Box, Toolbar, Drawer, List, Button, IconButton } from '@mui/material'
 import { ORDERS_QUERY } from '../query/OrdersQuery'
 import { Order } from '../common/types'
 import { DRAWER_WIDTH } from '../common/const'
+
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 
 interface OrderDrawerProps {
   mobileOpen: boolean
@@ -27,6 +28,9 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
       <Box sx={{ overflow: 'auto' }}>
         <div style={{ width: '100%' }}>
           <Box sx={{ display: 'flex', mx: 1.8, bgcolor: 'background.paper' }}>
+            <IconButton onClick={handleDrawerToggle} sx={{ pr: 1 }}>
+              <ArrowBackIosNewIcon />
+            </IconButton>
             <Box
               sx={{
                 p: 1,
@@ -35,7 +39,8 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
                 padding: '14px',
                 textAlign: 'right',
                 pt: '18px',
-                pr: '30px',
+                pr: '22px',
+                fontSize: 20,
               }}
             >
               주문내역
@@ -45,12 +50,13 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
                 size="small"
                 variant="outlined"
                 sx={{
-                  fontSize: 5,
-                  width: '10px',
-                  px: 3,
+                  fontSize: 15,
+                  width: '90%',
+                  px: 2,
                   ml: 1,
-                  padding: '6px',
-                  mt: '6px',
+                  mx: 2,
+                  p: 1,
+                  mt: '3px',
                 }}
               >
                 전체삭제
@@ -69,7 +75,7 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
             variant="contained"
             sx={{
               flex: 'auto',
-              fontSize: 10,
+              fontSize: 18,
               width: '100%',
               px: 3,
               ml: 1,
@@ -85,7 +91,7 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
             variant="contained"
             sx={{
               flex: 'auto',
-              fontSize: 10,
+              fontSize: 18,
               width: '100%',
               px: 3,
               ml: 1,

@@ -13,13 +13,16 @@ const StoreHomeCard: NextPage<StoreHomeCardProps> = ({ store }) => {
 
   return (
     <Card sx={{ display: 'flex', maxHeight: 400 }}>
-      <CardMedia
-        component="img"
-        sx={{ maxWidth: 500, width: '40%' }}
-        image={imageUrl}
-        alt={name}
-      />
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <CardMedia
+          component="img"
+          sx={{
+            maxHeight: 250,
+            width: '250%',
+          }}
+          image={imageUrl}
+          alt={name}
+        />
         <CardContent sx={{ flex: '1 0 auto' }}>
           <Typography component="div" variant="h5">
             {name}
