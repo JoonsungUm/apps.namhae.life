@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
-export const ORDERS_QUERY = gql`
-  query Orders {
-    orders {
+export const ORDERS_BY_STATUS_QUERY = gql`
+  query OrdersByStatus($status: String!) {
+    ordersByStatus(status: $status) {
       id
       storeId
       menuId

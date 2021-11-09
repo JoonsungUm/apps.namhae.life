@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
 import { OrdersService } from './orders.service'
-import { Order, OrderCreateInput, OrderUpdateInput } from '../graphql'
+import { Order, OrderCreateInput, OrderStatusBulkUpdateInput, OrderUpdateInput } from '../graphql'
 
 @Resolver('Order')
 export class OrdersResolver {
@@ -19,6 +19,11 @@ export class OrdersResolver {
   @Query()
   async ordersByUser(@Args('userId') userId: string) {
     return this.orderService.findByUserId(userId)
+  }
+
+  @Query()
+  async ordersByStatus(@Args('status') status: string) {
+    return this.orderService.findByStatus(status)
   }
 
   @Query()
@@ -49,5 +54,15 @@ export class OrdersResolver {
   async orderDelete(@Args('id') id: string): Promise<Order> {
     const deletedOrder = await this.orderService.delete(id)
     return deletedOrder
+  }
+
+  @Mutation()
+  async orderStatusBulkUpdate(
+    @Args('orderStatusBulkUpdateInput') args: OrderStatusBulkUpdateInput,
+  ): Promise<Order[]> {
+    const { ids, status } = args
+    console.log(ids, status)
+    const updatedOrders = await this.orderService.bulkUpdateStatus(ids, status)
+    return updatedOrders
   }
 }
