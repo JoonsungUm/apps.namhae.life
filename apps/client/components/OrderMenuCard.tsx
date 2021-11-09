@@ -30,7 +30,7 @@ const OrderMenuCard: NextPage<OrderMenuProps> = ({ order }) => {
     update(cache, { data: { orderDelete } }) {
       cache.modify({
         fields: {
-          orders(existingOrders = []) {
+          ordersByStatus(existingOrders = []) {
             if (orderDelete) {
               const deletedOrder = existingOrders.filter(
                 (order: any) => order.__ref !== `Order:${orderDelete.id}`,

@@ -119,7 +119,7 @@ const MenuCard: NextPage<MenuCardProps> = ({ storeId, menu }) => {
     update(cache, { data: { orderCreate } }) {
       cache.modify({
         fields: {
-          orders(existingOrders = []) {
+          ordersByStatus(existingOrders = []) {
             return [...existingOrders, orderCreate]
           },
         },
