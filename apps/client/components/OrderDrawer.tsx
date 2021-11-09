@@ -1,7 +1,7 @@
 import React from 'react'
 import { NextPage } from 'next'
 import { useQuery } from '@apollo/client'
-import { OrderMenuCard } from './OrderMenuCard'
+import OrderMenuCard from './OrderMenuCard'
 
 import { Box, Toolbar, Drawer, List, Button, IconButton } from '@mui/material'
 import { ORDERS_QUERY } from '../query/OrdersQuery'
@@ -100,7 +100,7 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
               mr: 1,
             }}
           >
-            결재하기
+            결제하기
           </Button>
         </Box>
       </Box>
