@@ -6,11 +6,6 @@ import Document, {
   DocumentContext,
 } from 'next/document'
 
-import IconButton from '@mui/material'
-import { styled } from '@mui/material/styles'
-import Badge, { BadgeProps } from '@mui/material/Badge'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const originalRenderPage = ctx.renderPage

@@ -10,6 +10,7 @@ export interface Store {
 
 export interface Menu {
   id: string
+  storeId: string
   name: string
   price: number
   description: string

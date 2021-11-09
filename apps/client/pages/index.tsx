@@ -19,7 +19,7 @@ import OrderDrawer from '../components/OrderDrawer'
 
 import { initializeApollo, addApolloState } from '../lib/apolloClient'
 import { useQuery } from '@apollo/client'
-import { Store } from '../types'
+import { Store } from '../common/types'
 import { STORES_QUERY } from '../query/StoresQuery'
 
 const Home: NextPage = () => {
@@ -32,8 +32,6 @@ const Home: NextPage = () => {
     setMobileOpen(!mobileOpen)
   }
 
-  const drawerWidth = 240
-
   return (
     <Box sx={{ display: 'flex' }}>
       <Head>
@@ -44,7 +42,6 @@ const Home: NextPage = () => {
 
       <Appbar
         title="Namhae Life 식사배달"
-        drawerWidth={drawerWidth}
         handleDrawerToggle={handleDrawerToggle}
       />
 
@@ -69,7 +66,6 @@ const Home: NextPage = () => {
       </Box>
 
       <OrderDrawer
-        drawerWidth={drawerWidth}
         mobileOpen={mobileOpen}
         handleDrawerToggle={handleDrawerToggle}
       />
