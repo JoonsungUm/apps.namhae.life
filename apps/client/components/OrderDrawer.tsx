@@ -1,14 +1,15 @@
 import React from 'react'
 import { NextPage } from 'next'
-import { useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import OrderMenuCard from './OrderMenuCard'
 
 import { Box, Toolbar, Drawer, List, Button, IconButton } from '@mui/material'
-import { ORDERS_QUERY } from '../query/OrdersQuery'
+import { ORDERS_BY_STATUS_QUERY } from '../query/OrdersByStatusQuery'
 import { Order } from '../common/types'
 import { DRAWER_WIDTH } from '../common/const'
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import { ORDER_STATUS_BULK_UPDATE_MUTATION } from '../query/OrderStatusBulkUpdateMutation'
 
 interface OrderDrawerProps {
   mobileOpen: boolean
@@ -19,8 +20,25 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
   mobileOpen,
   handleDrawerToggle,
 }) => {
-  const { loading, error, data } = useQuery(ORDERS_QUERY)
-  const { orders } = data || {}
+  const { data } = useQuery(ORDERS_BY_STATUS_QUERY, {
+    variables: {
+      status: 'SELECT_DONE',
+    },
+  })
+
+  const { ordersByStatus } = data || {}
+
+  const [orderStatusBulkUpdate] = useMutation(
+    ORDER_STATUS_BULK_UPDATE_MUTATION,
+    {
+      variables: {
+        orderStatusBulkUpdateInput: {
+          ids: ordersByStatus && ordersByStatus.map((order: Order) => order.id),
+          status: 'ORDER_DONE',
+        },
+      },
+    },
+  )
 
   const orderDrawer = (
     <div>
@@ -65,7 +83,7 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
           </Box>
         </div>
         <List>
-          {orders?.map((order: Order) => (
+          {ordersByStatus?.map((order: Order) => (
             <OrderMenuCard key={order.id} order={order} />
           ))}
         </List>
@@ -99,6 +117,7 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
               mt: '6px',
               mr: 1,
             }}
+            onClick={() => orderStatusBulkUpdate()}
           >
             결제하기
           </Button>

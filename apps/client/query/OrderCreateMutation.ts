@@ -9,6 +9,7 @@ export const ORDER_CREATE_MUTATION = gql`
       description
       isInCart
       isPaid
+      status
     }
   }
 `

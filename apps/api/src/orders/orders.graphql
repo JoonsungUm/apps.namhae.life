@@ -8,6 +8,7 @@ type Order {
   description: String
   isInCart: Boolean!
   isPaid: Boolean!
+  status: String
   createdAt: Date
   updatedAt: Date
   menu: Menu
@@ -17,6 +18,7 @@ type Query {
   orders: [Order]
   ordersByStore(storeId: ID!): [Order]
   ordersByUser(userId: ID!): [Order]
+  ordersByStatus(status: String!): [Order]
   order(id: ID!): Order
 }
 
@@ -24,6 +26,7 @@ type Mutation {
   orderCreate(orderCreateInput: OrderCreateInput!): Order
   orderUpdate(orderUpdateInput: OrderUpdateInput!): Order
   orderDelete(id: ID!): Order
+  orderStatusBulkUpdate(orderStatusBulkUpdateInput: OrderStatusBulkUpdateInput!): [Order]
 }
 
 input OrderCreateInput {
@@ -43,4 +46,10 @@ input OrderUpdateInput {
   description: String
   isInCart: Boolean
   isPaid: Boolean
+  status: String
+}
+
+input OrderStatusBulkUpdateInput {
+  ids: [ID!]!
+  status: String!
 }

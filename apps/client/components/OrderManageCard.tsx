@@ -16,11 +16,11 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { Order } from '../common/types'
 import { ORDER_DELETE_MUTATION } from '../query/OrderDeleteMutation'
 
-interface OrderMenuProps {
+interface OrderManageProps {
   order: Order
 }
 
-const OrderMenuCard: NextPage<OrderMenuProps> = ({ order }) => {
+const OrderManageCard: NextPage<OrderManageProps> = ({ order }) => {
   const { menu } = order
 
   const [orderDelete, { loading, error }] = useMutation(ORDER_DELETE_MUTATION, {
@@ -80,4 +80,4 @@ const OrderMenuCard: NextPage<OrderMenuProps> = ({ order }) => {
   )
 }
 
-export default OrderMenuCard
+export default OrderManageCard

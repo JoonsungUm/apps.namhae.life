@@ -24,6 +24,9 @@ export class Orders {
   @Column()
   isPaid: boolean
 
+  @Column({ default: 'SELECT_DONE' })
+  status: string
+
   @CreateDateColumn()
   createdAt: Date
 
