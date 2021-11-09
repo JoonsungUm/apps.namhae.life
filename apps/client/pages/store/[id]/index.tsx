@@ -130,11 +130,7 @@ const MenuCard: NextPage<MenuCardProps> = ({ storeId, menu }) => {
   return (
     <Card>
       <Link href={`/store/${storeId}/menu/${id}`} passHref>
-        <CardActionArea
-          onClick={() => {
-            console.log('click')
-          }}
-        >
+        <CardActionArea>
           {imageUrl && (
             <CardMedia
               component="img"

@@ -22,29 +22,6 @@ interface OrderMenuProps {
   order: Order
 }
 
-// const OrderMenuCard: NextPage<OrderMenuProps> = ({
-//   menuid,
-//   menuname,
-//   menuprice,
-// }) => {
-
-// 메뉴아이템 클릭시 ListItem key값이 순서가 업데이트 됨 -39번줄 order1은 임의로 넣은 값임.
-let ListitemKeyValue = ''
-const updateCountOrder = () => {
-  let ordernumber = 0
-  ordernumber++
-  const countOrder = `order ${ordernumber}`
-  ListitemKeyValue = countOrder
-  return countOrder
-}
-
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}))
-
 const OrderMenuCard: NextPage<OrderMenuProps> = ({ order }) => {
   const { menu } = order
 
@@ -57,7 +34,6 @@ const OrderMenuCard: NextPage<OrderMenuProps> = ({ order }) => {
         fields: {
           orders(existingOrders = []) {
             if (orderDelete) {
-              console.log(existingOrders)
               const deletedOrder = existingOrders.filter(
                 (order: any) => order.__ref !== `Order:${orderDelete.id}`,
               )
@@ -86,7 +62,6 @@ const OrderMenuCard: NextPage<OrderMenuProps> = ({ order }) => {
             <Grid item xs={4}>
               <Typography>{menu.name}</Typography>
               <Typography>{menu.price}</Typography>
-              {/* <Typography>총합</Typography> */}
             </Grid>
             <Grid item xs={8} sx={{ pl: '20px' }}>
               <Typography>
@@ -107,14 +82,4 @@ const OrderMenuCard: NextPage<OrderMenuProps> = ({ order }) => {
   )
 }
 
-// return OrderMenuCard {}
-
-/*50번째 줄아래 삭제버튼*/
-/*  <DeleteIcon /> */
-
-/* 메뉴개수추가버튼 */
-/* <Box sx={{ p: 1, order: 1, borderRadius: 16 }}>+</Box> */
-/* <Box sx={{ p: 1, order: 2 }}>1</Box> */
-/* <Box sx={{ p: 1, order: 3, borderRadius: 16 }}>-</Box> */
-
-export { OrderMenuCard }
+export default OrderMenuCard
