@@ -22,6 +22,7 @@ type Store {
 
 type Query {
   stores: [Store]
+  storesAvailable: [Store]
   store(id: ID!): Store
 }
 

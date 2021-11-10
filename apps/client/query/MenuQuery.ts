@@ -10,6 +10,10 @@ export const MENU_QUERY = gql`
       description
       isLunch
       isDinner
+      store {
+        id
+        name
+      }
     }
   }
 `

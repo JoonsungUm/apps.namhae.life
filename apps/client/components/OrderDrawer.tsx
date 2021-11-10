@@ -1,14 +1,16 @@
 import React from 'react'
 import { NextPage } from 'next'
+import router from 'next/router'
 import { useMutation, useQuery } from '@apollo/client'
-import OrderMenuCard from './OrderMenuCard'
 
 import { Box, Toolbar, Drawer, List, Button, IconButton } from '@mui/material'
-import { ORDERS_BY_STATUS_QUERY } from '../query/OrdersByStatusQuery'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+
 import { Order } from '../common/types'
 import { DRAWER_WIDTH } from '../common/const'
 
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import OrderMenuCard from './OrderMenuCard'
+import { ORDERS_BY_STATUS_QUERY } from '../query/OrdersByStatusQuery'
 import { ORDER_STATUS_BULK_UPDATE_MUTATION } from '../query/OrderStatusBulkUpdateMutation'
 
 interface OrderDrawerProps {
@@ -37,6 +39,9 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
           status: 'ORDER_DONE',
         },
       },
+      onCompleted: () => {
+        router.push('/orders')
+      },
     },
   )
 
@@ -55,15 +60,15 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
                 flexGrow: 1,
                 bgcolor: 'white.200',
                 padding: '14px',
-                textAlign: 'right',
+                textAlign: 'center',
                 pt: '18px',
-                pr: '22px',
+                pr: '60px',
                 fontSize: 20,
               }}
             >
               주문내역
             </Box>
-            <Box sx={{ p: 1, bgcolor: 'white.300' }}>
+            {/* <Box sx={{ p: 1, bgcolor: 'white.300' }}>
               <Button
                 size="small"
                 variant="outlined"
@@ -79,7 +84,7 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
               >
                 전체삭제
               </Button>
-            </Box>
+            </Box> */}
           </Box>
         </div>
         <List>
@@ -88,7 +93,7 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
           ))}
         </List>
         <Box sx={{ display: 'flex', p: 1, bgcolor: 'background.paper' }}>
-          <Button
+          {/* <Button
             size="small"
             variant="contained"
             sx={{
@@ -103,7 +108,7 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
             }}
           >
             메뉴추가
-          </Button>
+          </Button> */}
           <Button
             size="small"
             variant="contained"
@@ -119,7 +124,7 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
             }}
             onClick={() => orderStatusBulkUpdate()}
           >
-            결제하기
+            주문하기
           </Button>
         </Box>
       </Box>

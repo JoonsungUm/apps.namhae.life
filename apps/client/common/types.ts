@@ -17,6 +17,7 @@ export interface Menu {
   imageUrl: string
   isLunch: boolean
   isDinner: boolean
+  store: Store
 }
 
 export interface Order {

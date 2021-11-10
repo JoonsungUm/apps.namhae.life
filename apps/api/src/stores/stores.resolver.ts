@@ -17,6 +17,11 @@ export class StoresResolver {
     return this.storesService.findAll()
   }
 
+  @Query()
+  async storesAvailable() {
+    return this.storesService.findAvailable()
+  }
+
   @Mutation()
   async storeCreate(@Args('storeCreateInput') args: StoreCreateInput): Promise<Store> {
     const createdStore = await this.storesService.create(args)

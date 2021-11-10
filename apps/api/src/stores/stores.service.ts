@@ -14,6 +14,10 @@ export class StoresService {
     return await this.storeRepository.find()
   }
 
+  async findAvailable(): Promise<Stores[]> {
+    return await this.storeRepository.find({ isVisible: true })
+  }
+
   async findOne(id: string): Promise<Stores> {
     return await this.storeRepository.findOne(id)
   }

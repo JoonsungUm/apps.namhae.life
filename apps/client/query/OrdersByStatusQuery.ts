@@ -13,6 +13,10 @@ export const ORDERS_BY_STATUS_QUERY = gql`
       menu {
         name
         price
+        store {
+          id
+          name
+        }
       }
     }
   }

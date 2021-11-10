@@ -15,6 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 
 import { Order } from '../common/types'
 import { ORDER_DELETE_MUTATION } from '../query/OrderDeleteMutation'
+import OrderStatusSelect from './OrderStatusSelect'
 
 interface OrderManageProps {
   order: Order
@@ -44,37 +45,34 @@ const OrderManageCard: NextPage<OrderManageProps> = ({ order }) => {
   })
 
   return (
-    <Card sx={{ mx: 2, my: 0.5 }}>
+    <Card sx={{ mx: 2, my: 0.5, p: 0, position: 'relative' }}>
       <CardContent>
-        <Typography sx={{ textAlign: 'right' }}>
+        <Box>
           <IconButton
             color="primary"
             aria-label="delete cart item"
             onClick={() => orderDelete()}
+            sx={{
+              float: 'right',
+            }}
           >
             <DeleteIcon />
           </IconButton>
-        </Typography>
-        <div style={{ width: '100%' }}>
-          <Grid container sx={{ color: 'text.primary' }}>
-            <Grid item xs={4}>
-              <Typography>{menu.name}</Typography>
-              <Typography>{menu.price}</Typography>
-            </Grid>
-            <Grid item xs={8} sx={{ pl: '20px' }}>
-              <Typography>
-                <Box style={{ width: '100%' }}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      p: 1,
-                    }}
-                  ></Box>
-                </Box>
-              </Typography>
-            </Grid>
+        </Box>
+        <Grid container sx={{ color: 'text.primary' }}>
+          <Grid item xs={4}>
+            <Typography textAlign="center">{menu.store?.name}</Typography>
+            <Typography variant="h5" textAlign="center">
+              {menu.name}
+            </Typography>
           </Grid>
-        </div>
+          <Grid item xs={4}>
+            <Typography textAlign="center">{menu.price}원</Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <OrderStatusSelect />
+          </Grid>
+        </Grid>
       </CardContent>
     </Card>
   )

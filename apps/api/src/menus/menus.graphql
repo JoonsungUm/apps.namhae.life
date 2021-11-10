@@ -7,6 +7,7 @@ type Menu {
   imageUrl: String
   isLunch: Boolean!
   isDinner: Boolean!
+  store: Store!
 }
 
 type Query {

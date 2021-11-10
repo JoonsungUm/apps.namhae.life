@@ -9,5 +9,6 @@ import { MenusModule } from 'src/menus/menus.module'
 @Module({
   imports: [TypeOrmModule.forFeature([Stores]), MenusModule],
   providers: [StoresService, StoresResolver, StoreMenusResolver],
+  exports: [StoresService],
 })
 export class StoresModule {}

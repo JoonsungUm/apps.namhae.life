@@ -20,13 +20,13 @@ import OrderDrawer from '../components/OrderDrawer'
 import { initializeApollo, addApolloState } from '../lib/apolloClient'
 import { useQuery } from '@apollo/client'
 import { Store } from '../common/types'
-import { STORES_QUERY } from '../query/StoresQuery'
+import { STORES_AVAILABLE_QUERY } from '../query/StoresAvailableQuery'
 
 const Home: NextPage = () => {
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  const { loading, error, data } = useQuery(STORES_QUERY)
-  const { stores } = data || {}
+  const { loading, error, data } = useQuery(STORES_AVAILABLE_QUERY)
+  const { storesAvailable } = data || {}
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
@@ -52,7 +52,7 @@ const Home: NextPage = () => {
           spacing={{ xs: 2, sm: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
-          {stores?.map((store: Store, index: number) => (
+          {storesAvailable?.map((store: Store, index: number) => (
             <Grid key={index} item xs={4} sm={4} md={4}>
               <StoreCard
                 id={store.id}
@@ -108,7 +108,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo()
 
   await apolloClient.query({
-    query: STORES_QUERY,
+    query: STORES_AVAILABLE_QUERY,
   })
 
   return addApolloState(apolloClient, {
