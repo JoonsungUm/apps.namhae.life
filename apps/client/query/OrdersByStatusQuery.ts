@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export const ORDERS_BY_STATUS_QUERY = gql`
-  query OrdersByStatus($status: String!) {
+  query OrdersByStatus($status: OrderStatus!) {
     ordersByStatus(status: $status) {
       id
       storeId

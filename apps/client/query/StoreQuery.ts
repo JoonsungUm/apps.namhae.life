@@ -11,6 +11,7 @@ export const STORE_QUERY = gql`
       phone
       menus {
         id
+        storeId
         name
         price
         imageUrl

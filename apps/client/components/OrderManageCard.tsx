@@ -59,18 +59,22 @@ const OrderManageCard: NextPage<OrderManageProps> = ({ order }) => {
             <DeleteIcon />
           </IconButton>
         </Box>
-        <Grid container sx={{ color: 'text.primary' }}>
-          <Grid item xs={4}>
+        <Grid
+          container
+          columns={{ xs: 4, sm: 12, md: 12 }}
+          sx={{ color: 'text.primary' }}
+        >
+          <Grid item xs={4} sm={4} md={4}>
             <Typography textAlign="center">{menu.store?.name}</Typography>
             <Typography variant="h5" textAlign="center">
               {menu.name}
             </Typography>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={4} sm={4} md={4}>
             <Typography textAlign="center">{menu.price}원</Typography>
           </Grid>
-          <Grid item xs={4}>
-            <OrderStatusSelect />
+          <Grid item xs={4} sm={4} md={4}>
+            <OrderStatusSelect order={order} />
           </Grid>
         </Grid>
       </CardContent>

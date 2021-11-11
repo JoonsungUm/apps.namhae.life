@@ -4,31 +4,19 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 
 import { initializeApollo, addApolloState } from '../../../lib/apolloClient'
-import { gql, useQuery, useMutation } from '@apollo/client'
+import { gql, useQuery } from '@apollo/client'
 
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
-
-import {
-  Box,
-  Grid,
-  Toolbar,
-  Typography,
-  Card,
-  CardContent,
-  CardMedia,
-  CardActionArea,
-  IconButton,
-} from '@mui/material'
+import { Box, Grid, Toolbar } from '@mui/material'
 
 import Appbar from '../../../components/Appbar'
 import OrderDrawer from '../../../components/OrderDrawer'
 
 import { Store, Menu } from '../../../common/types'
-import { ORDER_CREATE_MUTATION } from '../../../query/OrderCreateMutation'
+
 import { STORE_QUERY } from '../../../query/StoreQuery'
-import { BREAK_TIME } from '../../../common/const'
 import StoreHomeCard from '../../../components/StoreHomeCard'
-import Link from 'next/link'
+
+import MenuCard from '../../../components/MenuCard'
 
 const StorePage: NextPage = () => {
   const router = useRouter()
@@ -74,7 +62,7 @@ const StorePage: NextPage = () => {
             {menus &&
               menus.map((menu: Menu, index: number) => (
                 <Grid key={index} item xs={4} sm={4} md={4}>
-                  <MenuCard storeId={id as string} menu={menu} />
+                  <MenuCard menu={menu} />
                 </Grid>
               ))}
           </Grid>
@@ -89,94 +77,6 @@ const StorePage: NextPage = () => {
 }
 
 export default StorePage
-
-interface MenuCardProps {
-  storeId: string
-  menu: Menu
-}
-
-const isMenuAvailable = (menu: Menu): boolean => {
-  const currentTime = new Date().getHours()
-
-  if (currentTime < BREAK_TIME) {
-    return menu.isLunch
-  } else {
-    return menu.isDinner
-  }
-}
-
-const MenuCard: NextPage<MenuCardProps> = ({ storeId, menu }) => {
-  const { id, name, price, imageUrl, description } = menu || {}
-
-  const [order, { loading, error }] = useMutation(ORDER_CREATE_MUTATION, {
-    variables: {
-      orderCreateInput: {
-        menuId: menu.id,
-        isInCart: true,
-        isPaid: false,
-      },
-    },
-    update(cache, { data: { orderCreate } }) {
-      cache.modify({
-        fields: {
-          ordersByStatus(existingOrders = []) {
-            return [...existingOrders, orderCreate]
-          },
-        },
-      })
-    },
-  })
-
-  return (
-    <Card>
-      <Link href={`/store/${storeId}/menu/${id}`} passHref>
-        <CardActionArea>
-          {imageUrl && (
-            <CardMedia
-              component="img"
-              height="140"
-              image={imageUrl}
-              alt={name}
-            />
-          )}
-          <CardContent>
-            <Typography
-              gutterBottom
-              variant="h5"
-              component="div"
-              color={isMenuAvailable(menu) ? 'text.primary' : 'text.secondary'}
-            >
-              {name}
-            </Typography>
-            <Typography
-              variant="body1"
-              component="div"
-              color={isMenuAvailable(menu) ? 'text.primary' : 'text.secondary'}
-            >
-              {price}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {description}
-            </Typography>
-            <Typography sx={{ textAlign: 'right' }}>
-              <IconButton
-                color="primary"
-                aria-label="add to shopping cart"
-                onClick={(e) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  order()
-                }}
-              >
-                <AddShoppingCartIcon />
-              </IconButton>
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Link>
-    </Card>
-  )
-}
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const apolloClient = initializeApollo()
