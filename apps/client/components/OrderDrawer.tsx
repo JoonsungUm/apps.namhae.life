@@ -51,9 +51,6 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
       <Box sx={{ overflow: 'auto' }}>
         <div style={{ width: '100%' }}>
           <Box sx={{ display: 'flex', mx: 1.8, bgcolor: 'background.paper' }}>
-            <IconButton onClick={handleDrawerToggle} sx={{ pr: 1 }}>
-              <ArrowBackIosNewIcon />
-            </IconButton>
             <Box
               sx={{
                 p: 1,
@@ -62,7 +59,6 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
                 padding: '14px',
                 textAlign: 'center',
                 pt: '18px',
-                pr: '60px',
                 fontSize: 20,
               }}
             >
