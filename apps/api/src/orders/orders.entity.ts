@@ -2,7 +2,11 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 import { CreateDateColumn, UpdateDateColumn } from 'typeorm'
 import { OrderStatus } from '../graphql'
 
-@Entity()
+@Entity({
+  orderBy: {
+    id: 'ASC',
+  },
+})
 export class Orders {
   @PrimaryGeneratedColumn()
   id: string
