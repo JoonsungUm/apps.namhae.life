@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 import { CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { OrderStatus } from '../graphql'
 
 @Entity()
 export class Orders {
@@ -24,8 +25,12 @@ export class Orders {
   @Column()
   isPaid: boolean
 
-  @Column({ default: 'SELECT_DONE' })
-  status: string
+  @Column({
+    type: 'enum',
+    enum: OrderStatus,
+    default: OrderStatus.SELECT_DONE,
+  })
+  status: OrderStatus
 
   @CreateDateColumn()
   createdAt: Date

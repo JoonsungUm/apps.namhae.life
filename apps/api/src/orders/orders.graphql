@@ -1,5 +1,15 @@
 scalar Date
 
+enum OrderStatus {
+  SELECT_DONE
+  ORDER_DONE
+  ORDER_CANCEL
+  COOK_DONE
+  DELIVERY_DONE
+  PAYMENT_DONE
+  UNKNOWN_ERROR
+}
+
 type Order {
   id: ID!
   storeId: ID
@@ -8,7 +18,7 @@ type Order {
   description: String
   isInCart: Boolean!
   isPaid: Boolean!
-  status: String
+  status: OrderStatus
   createdAt: Date
   updatedAt: Date
   menu: Menu
@@ -18,7 +28,7 @@ type Query {
   orders: [Order]
   ordersByStore(storeId: ID!): [Order]
   ordersByUser(userId: ID!): [Order]
-  ordersByStatus(status: String!): [Order]
+  ordersByStatus(status: OrderStatus!): [Order]
   order(id: ID!): Order
 }
 
@@ -46,10 +56,10 @@ input OrderUpdateInput {
   description: String
   isInCart: Boolean
   isPaid: Boolean
-  status: String
+  status: OrderStatus
 }
 
 input OrderStatusBulkUpdateInput {
   ids: [ID!]!
-  status: String!
+  status: OrderStatus!
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Order } from 'src/graphql'
+import { Order, OrderStatus } from '../graphql'
 import { Repository } from 'typeorm'
 import { Orders } from './orders.entity'
 
@@ -19,7 +19,7 @@ export class OrdersService {
     return await this.orderRepository.find({ storeId })
   }
 
-  async findByStatus(status: string): Promise<Orders[]> {
+  async findByStatus(status: OrderStatus): Promise<Orders[]> {
     return await this.orderRepository.find({ status })
   }
 
@@ -45,7 +45,7 @@ export class OrdersService {
     return order
   }
 
-  async bulkUpdateStatus(ids: string[], status: string): Promise<Orders[]> {
+  async bulkUpdateStatus(ids: string[], status: OrderStatus): Promise<Orders[]> {
     const orders = await this.orderRepository.findByIds(ids)
     orders.map((order: Order) => {
       order.status = status

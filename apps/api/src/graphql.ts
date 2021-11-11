@@ -7,6 +7,16 @@
 
 /* tslint:disable */
 /* eslint-disable */
+export enum OrderStatus {
+    SELECT_DONE = "SELECT_DONE",
+    ORDER_DONE = "ORDER_DONE",
+    ORDER_CANCEL = "ORDER_CANCEL",
+    COOK_DONE = "COOK_DONE",
+    DELIVERY_DONE = "DELIVERY_DONE",
+    PAYMENT_DONE = "PAYMENT_DONE",
+    UNKNOWN_ERROR = "UNKNOWN_ERROR"
+}
+
 export enum Holiday {
     SUN = "SUN",
     MON = "MON",
@@ -55,12 +65,12 @@ export interface OrderUpdateInput {
     description?: Nullable<string>;
     isInCart?: Nullable<boolean>;
     isPaid?: Nullable<boolean>;
-    status?: Nullable<string>;
+    status?: Nullable<OrderStatus>;
 }
 
 export interface OrderStatusBulkUpdateInput {
     ids: string[];
-    status: string;
+    status: OrderStatus;
 }
 
 export interface StoreCreateInput {
@@ -93,6 +103,7 @@ export interface Menu {
     imageUrl?: Nullable<string>;
     isLunch: boolean;
     isDinner: boolean;
+    store: Store;
 }
 
 export interface IQuery {
@@ -102,7 +113,7 @@ export interface IQuery {
     orders(): Nullable<Nullable<Order>[]> | Promise<Nullable<Nullable<Order>[]>>;
     ordersByStore(storeId: string): Nullable<Nullable<Order>[]> | Promise<Nullable<Nullable<Order>[]>>;
     ordersByUser(userId: string): Nullable<Nullable<Order>[]> | Promise<Nullable<Nullable<Order>[]>>;
-    ordersByStatus(status: string): Nullable<Nullable<Order>[]> | Promise<Nullable<Nullable<Order>[]>>;
+    ordersByStatus(status: OrderStatus): Nullable<Nullable<Order>[]> | Promise<Nullable<Nullable<Order>[]>>;
     order(id: string): Nullable<Order> | Promise<Nullable<Order>>;
     stores(): Nullable<Nullable<Store>[]> | Promise<Nullable<Nullable<Store>[]>>;
     storesAvailable(): Nullable<Nullable<Store>[]> | Promise<Nullable<Nullable<Store>[]>>;
@@ -130,7 +141,7 @@ export interface Order {
     description?: Nullable<string>;
     isInCart: boolean;
     isPaid: boolean;
-    status?: Nullable<string>;
+    status?: Nullable<OrderStatus>;
     createdAt?: Nullable<Date>;
     updatedAt?: Nullable<Date>;
     menu?: Nullable<Menu>;

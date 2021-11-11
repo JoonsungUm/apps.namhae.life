@@ -1,6 +1,7 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
 import { MenusService } from './menus.service'
-import { Menu, MenuCreateInput, MenuUpdateInput } from '../graphql'
+import { MenuCreateInput, MenuUpdateInput } from '../graphql'
+import { Menus } from './menus.entity'
 
 @Resolver('Menu')
 export class MenusResolver {
@@ -22,13 +23,13 @@ export class MenusResolver {
   }
 
   @Mutation()
-  async menuCreate(@Args('menuCreateInput') args: MenuCreateInput): Promise<Menu> {
+  async menuCreate(@Args('menuCreateInput') args: MenuCreateInput): Promise<Menus> {
     const createdMenu = await this.menusService.create(args)
     return createdMenu
   }
 
   @Mutation()
-  async menuUpdate(@Args('menuUpdateInput') args: MenuUpdateInput): Promise<Menu> {
+  async menuUpdate(@Args('menuUpdateInput') args: MenuUpdateInput): Promise<Menus> {
     const { id, ...rest } = args
     let menu = await this.menusService.findOne(id)
     menu = {
@@ -41,7 +42,7 @@ export class MenusResolver {
   }
 
   @Mutation()
-  async menuDelete(@Args('id') id: string): Promise<Menu> {
+  async menuDelete(@Args('id') id: string): Promise<Menus> {
     const deletedMenu = await this.menusService.delete(id)
     return deletedMenu
   }
