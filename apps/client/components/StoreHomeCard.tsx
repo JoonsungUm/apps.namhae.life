@@ -12,7 +12,7 @@ const StoreHomeCard: NextPage<StoreHomeCardProps> = ({ store }) => {
   const { name, imageUrl, address, phone, description } = store || {}
 
   return (
-    <Card sx={{ display: 'flex', maxHeight: 400 }}>
+    <Card sx={{ display: 'flex' }}>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardMedia
           component="img"
