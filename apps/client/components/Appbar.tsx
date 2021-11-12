@@ -1,5 +1,6 @@
 import React from 'react'
 import { NextPage } from 'next'
+import { useRouter } from 'next/router'
 
 import { Box, AppBar, Toolbar, Typography, IconButton } from '@mui/material'
 
@@ -14,6 +15,8 @@ interface AppbarProps {
 }
 
 const Appbar: NextPage<AppbarProps> = ({ title, handleDrawerToggle }) => {
+  const router = useRouter()
+
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar
@@ -24,8 +27,15 @@ const Appbar: NextPage<AppbarProps> = ({ title, handleDrawerToggle }) => {
         }}
       >
         <Toolbar sx={{ width: '100%' }}>
-          <IconButton href="/" sx={{ pr: 1 }}>
-            <ArrowBackIosNewIcon />
+          <IconButton
+            sx={{ pr: 1 }}
+            color="inherit"
+            size="small"
+            onClick={() => {
+              router.back()
+            }}
+          >
+            <ArrowBackIosNewIcon fontSize="small" />
           </IconButton>
           <Typography variant="h6" noWrap component="div" sx={{ pl: 1 }}>
             {title}
