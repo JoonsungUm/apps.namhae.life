@@ -140,7 +140,10 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
         sx={{
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
-            width: DRAWER_WIDTH,
+            width: {
+              xs: '100%',
+              sm: DRAWER_WIDTH,
+            },
           },
         }}
       >
