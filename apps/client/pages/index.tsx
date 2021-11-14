@@ -107,12 +107,14 @@ const StoreCard: NextPage<StoreCardProps> = (store) => {
 export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo()
 
-  await apolloClient.query({
+  const { data } = await apolloClient.query({
     query: STORES_AVAILABLE_QUERY,
   })
 
+  const { storesAvailable } = data || {}
+
   return addApolloState(apolloClient, {
-    props: {},
+    props: { storesAvailable },
     revalidate: 10,
   })
 }

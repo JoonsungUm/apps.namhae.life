@@ -19,7 +19,8 @@
     "@apollo/client": "~3.4.16",
     "graphql": "~15.6.1",
     "deepmerge": "~4.2.2",
-    "lodash": "~4.17.21"
+    "lodash": "~4.17.21",
+    "date-fns": "~2.25.0"
   },
   "devDependencies": {
     "@types/react": "17.0.24",

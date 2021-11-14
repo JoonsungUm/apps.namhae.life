@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { NextPage } from 'next'
 import Head from 'next/head'
-import Link from 'next/link'
 
 import { useQuery } from '@apollo/client'
-import { Box, Toolbar, List, Button } from '@mui/material'
+import { Box, Toolbar, List } from '@mui/material'
 
 import { isToday } from 'date-fns'
 
@@ -44,18 +43,11 @@ const OrdersPage: NextPage = () => {
         <Box>
           <List>
             {orders?.map((order: Order) => {
-              if (isToday(order.createdAt)) {
+              if (isToday(order.createdAt) === false) {
                 return <OrderManageCard key={order.id} order={order} />
               }
             })}
           </List>
-        </Box>
-        <Box sx={{ textAlign: 'center' }}>
-          <Link href="/orders/old" passHref>
-            <Button variant="text" color="primary">
-              이전 주문 보기
-            </Button>
-          </Link>
         </Box>
       </Box>
 

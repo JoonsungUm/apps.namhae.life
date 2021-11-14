@@ -9,27 +9,16 @@ import {
   Card,
   CardContent,
   CardMedia,
-  CardActionArea,
+  CardActions,
   IconButton,
 } from '@mui/material'
 
 import { Menu } from '../common/types'
 import { ORDER_CREATE_MUTATION } from '../query/OrderCreateMutation'
-import { BREAK_TIME } from '../common/const'
 // import Link from 'next/link'
 
 interface MenuCardProps {
   menu: Menu
-}
-
-const isMenuAvailable = (menu: Menu): boolean => {
-  const currentTime = new Date().getHours()
-
-  if (currentTime < BREAK_TIME) {
-    return menu.isLunch
-  } else {
-    return menu.isDinner
-  }
 }
 
 const MenuCard: NextPage<MenuCardProps> = ({ menu }) => {
@@ -57,44 +46,33 @@ const MenuCard: NextPage<MenuCardProps> = ({ menu }) => {
   return (
     <Card>
       {/* <Link href={`/store/${storeId}/menu/${id}`} passHref> */}
-      <CardActionArea>
-        {imageUrl && (
-          <CardMedia component="img" height="140" image={imageUrl} alt={name} />
-        )}
-        <CardContent>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            color={isMenuAvailable(menu) ? 'text.primary' : 'text.secondary'}
+      {imageUrl && (
+        <CardMedia component="img" height="140" image={imageUrl} alt={name} />
+      )}
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {name}
+        </Typography>
+        <Typography variant="body1" component="div">
+          {price}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {description}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Typography sx={{ width: '100%', textAlign: 'right' }}>
+          <IconButton
+            color="primary"
+            aria-label="add to shopping cart"
+            onClick={() => {
+              order()
+            }}
           >
-            {name}
-          </Typography>
-          <Typography
-            variant="body1"
-            component="div"
-            color={isMenuAvailable(menu) ? 'text.primary' : 'text.secondary'}
-          >
-            {price}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {description}
-          </Typography>
-          <Typography sx={{ textAlign: 'right' }}>
-            <IconButton
-              color="primary"
-              aria-label="add to shopping cart"
-              onClick={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                order()
-              }}
-            >
-              <AddShoppingCartIcon />
-            </IconButton>
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+            <AddShoppingCartIcon />
+          </IconButton>
+        </Typography>
+      </CardActions>
       {/* </Link> */}
     </Card>
   )

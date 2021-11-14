@@ -40,4 +40,6 @@ export interface Order {
   isPaid: boolean
   menu: Menu
   status: ORDER_STATUS
+  createdAt: number
+  updatedAt: number
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { GetStaticProps, NextPage } from 'next'
+import { NextPage, GetStaticProps, GetStaticPaths } from 'next'
 import { useRouter } from 'next/router'
 import { gql, useQuery } from '@apollo/client'
 import { Box } from '@mui/material'
@@ -38,8 +38,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     notifyOnNetworkStatusChange: true,
   })
 
+  const { menu } = data.data || {}
+
   return addApolloState(apolloClient, {
-    props: {},
+    props: { menu },
     revalidate: 10,
   })
 }
@@ -53,7 +55,7 @@ const MENU_COUNT_QUERY = gql`
   }
 `
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const apolloClient = initializeApollo()
 
   const data = await apolloClient.query({

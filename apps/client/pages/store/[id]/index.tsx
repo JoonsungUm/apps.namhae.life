@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NextPage, GetStaticProps } from 'next'
+import { NextPage, GetStaticProps, GetStaticPaths } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
@@ -8,14 +8,14 @@ import { gql, useQuery } from '@apollo/client'
 
 import { Box, Grid, Toolbar } from '@mui/material'
 
-import Appbar from '../../../components/Appbar'
-import OrderDrawer from '../../../components/OrderDrawer'
-
 import { Store, Menu } from '../../../common/types'
+import { isMenuAvailable } from '../../../common/utils'
 
 import { STORE_QUERY } from '../../../query/StoreQuery'
-import StoreHomeCard from '../../../components/StoreHomeCard'
 
+import Appbar from '../../../components/Appbar'
+import OrderDrawer from '../../../components/OrderDrawer'
+import StoreHomeCard from '../../../components/StoreHomeCard'
 import MenuCard from '../../../components/MenuCard'
 
 const StorePage: NextPage = () => {
@@ -60,11 +60,15 @@ const StorePage: NextPage = () => {
             columns={{ xs: 4, sm: 8, md: 12 }}
           >
             {menus &&
-              menus.map((menu: Menu, index: number) => (
-                <Grid key={index} item xs={4} sm={4} md={4}>
-                  <MenuCard menu={menu} />
-                </Grid>
-              ))}
+              menus.map((menu: Menu, index: number) => {
+                if (isMenuAvailable(menu)) {
+                  return (
+                    <Grid key={index} item xs={4} sm={4} md={4}>
+                      <MenuCard menu={menu} />
+                    </Grid>
+                  )
+                }
+              })}
           </Grid>
         </Box>
       </Box>
@@ -90,8 +94,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     notifyOnNetworkStatusChange: true,
   })
 
+  const { store } = data.data || {}
+
   return addApolloState(apolloClient, {
-    props: {},
+    props: { store },
     revalidate: 10,
   })
 }
@@ -104,7 +110,7 @@ const STORE_COUNT_QUERY = gql`
   }
 `
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const apolloClient = initializeApollo()
 
   const data = await apolloClient.query({

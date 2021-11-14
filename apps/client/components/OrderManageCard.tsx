@@ -22,7 +22,9 @@ interface OrderManageProps {
 }
 
 const OrderManageCard: NextPage<OrderManageProps> = ({ order }) => {
-  const { menu } = order
+  const { menu, createdAt } = order
+
+  const createDate = new Date(createdAt).toLocaleString()
 
   const [orderDelete, { loading, error }] = useMutation(ORDER_DELETE_MUTATION, {
     variables: {
@@ -45,9 +47,15 @@ const OrderManageCard: NextPage<OrderManageProps> = ({ order }) => {
   })
 
   return (
-    <Card sx={{ mx: 2, my: 0.5, p: 0, position: 'relative' }}>
+    <Card sx={{ mx: 0, my: 2, p: 0, position: 'relative' }}>
       <CardContent>
-        <Box>
+        <Box sx={{ mb: '12px' }}>
+          <Typography
+            variant="subtitle2"
+            sx={{ display: 'inline-block', p: '8px' }}
+          >
+            {createDate}
+          </Typography>
           <IconButton
             color="primary"
             aria-label="delete cart item"

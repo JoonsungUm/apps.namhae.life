@@ -10,6 +10,8 @@ export const ORDERS_QUERY = gql`
       isInCart
       isPaid
       status
+      createdAt
+      updatedAt
       menu {
         name
         price
