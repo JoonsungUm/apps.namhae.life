@@ -5,14 +5,16 @@ import Head from 'next/head'
 import { useQuery } from '@apollo/client'
 import { Box, Toolbar, List } from '@mui/material'
 
-import { isToday } from 'date-fns'
+import { subHours } from 'date-fns'
 
 import Appbar from '../../components/Appbar'
 import OrderDrawer from '../../components/OrderDrawer'
 
 import { Order } from '../../common/types'
 import { ORDERS_QUERY } from '../../query/OrdersQuery'
-import OrderManageCard from '../../components/OrderManageCard'
+import OldOrderCard from '../../components/OldOrderCard'
+import { RECENT_ORDER_THRESHOLD } from '../../common/const'
+import { isRecentOrder } from '../../common/utils'
 
 const OrdersPage: NextPage = () => {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -43,8 +45,8 @@ const OrdersPage: NextPage = () => {
         <Box>
           <List>
             {orders?.map((order: Order) => {
-              if (isToday(order.createdAt) === false) {
-                return <OrderManageCard key={order.id} order={order} />
+              if (isRecentOrder(order) === false) {
+                return <OldOrderCard key={order.id} order={order} />
               }
             })}
           </List>

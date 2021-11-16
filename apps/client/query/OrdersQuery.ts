@@ -18,6 +18,8 @@ export const ORDERS_QUERY = gql`
         store {
           id
           name
+          address
+          phone
         }
       }
     }

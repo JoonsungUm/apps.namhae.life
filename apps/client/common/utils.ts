@@ -1,5 +1,6 @@
-import { Menu } from './types'
-import { BREAK_TIME } from './const'
+import { subHours } from 'date-fns'
+import { Order, Menu } from './types'
+import { BREAK_TIME, RECENT_ORDER_THRESHOLD } from './const'
 
 export const isMenuAvailable = (menu: Menu): boolean => {
   const currentTime = new Date().getHours()
@@ -9,4 +10,10 @@ export const isMenuAvailable = (menu: Menu): boolean => {
   } else {
     return menu.isDinner
   }
+}
+
+export const isRecentOrder = (order: Order): boolean => {
+  return (
+    subHours(new Date(), RECENT_ORDER_THRESHOLD) < new Date(order.createdAt)
+  )
 }

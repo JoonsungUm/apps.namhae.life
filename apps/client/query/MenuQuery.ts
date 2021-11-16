@@ -13,6 +13,8 @@ export const MENU_QUERY = gql`
       store {
         id
         name
+        address
+        phone
       }
     }
   }

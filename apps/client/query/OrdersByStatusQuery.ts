@@ -16,6 +16,8 @@ export const ORDERS_BY_STATUS_QUERY = gql`
         store {
           id
           name
+          address
+          phone
         }
       }
     }

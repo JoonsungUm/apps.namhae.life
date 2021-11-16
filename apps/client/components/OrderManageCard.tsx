@@ -1,21 +1,14 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { NextPage } from 'next'
 import { useMutation } from '@apollo/client'
 
-import {
-  Box,
-  Card,
-  CardContent,
-  IconButton,
-  Typography,
-  Grid,
-} from '@mui/material'
+import { IconButton, Typography, Grid } from '@mui/material'
 
 import DeleteIcon from '@mui/icons-material/Delete'
 
 import { Order } from '../common/types'
 import { ORDER_DELETE_MUTATION } from '../query/OrderDeleteMutation'
-import OrderStatusSelect from './OrderStatusSelect'
+// import OrderStatusSelect from './OrderStatusSelect'
 
 interface OrderManageProps {
   order: Order
@@ -47,46 +40,33 @@ const OrderManageCard: NextPage<OrderManageProps> = ({ order }) => {
   })
 
   return (
-    <Card sx={{ mx: 0, my: 2, p: 0, position: 'relative' }}>
-      <CardContent>
-        <Box sx={{ mb: '12px' }}>
-          <Typography
-            variant="subtitle2"
-            sx={{ display: 'inline-block', p: '8px' }}
-          >
-            {createDate}
-          </Typography>
-          <IconButton
-            color="primary"
-            aria-label="delete cart item"
-            onClick={() => orderDelete()}
-            sx={{
-              float: 'right',
-            }}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </Box>
-        <Grid
-          container
-          columns={{ xs: 4, sm: 12, md: 12 }}
-          sx={{ color: 'text.primary' }}
+    <Fragment>
+      <Grid item xs={5} sm={5} md={5} sx={{ p: '20px' }}>
+        <Typography>{menu.name}</Typography>
+        <Typography>{menu.price}원</Typography>
+        <Typography
+          variant="body2"
+          sx={{ display: 'inline-block', p: '8px', fontSize: '14px' }}
         >
-          <Grid item xs={4} sm={4} md={4}>
-            <Typography textAlign="center">{menu.store?.name}</Typography>
-            <Typography variant="h5" textAlign="center">
-              {menu.name}
-            </Typography>
-          </Grid>
-          <Grid item xs={4} sm={4} md={4}>
-            <Typography textAlign="center">{menu.price}원</Typography>
-          </Grid>
-          <Grid item xs={4} sm={4} md={4}>
-            <OrderStatusSelect order={order} />
-          </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
+          {createDate}
+        </Typography>
+      </Grid>
+      <Grid item sx={{ alignSelf: 'center' }}>
+        <IconButton
+          color="primary"
+          aria-label="delete cart item"
+          onClick={() => orderDelete()}
+          sx={{
+            float: 'right',
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </Grid>
+      <Grid item xs={4} sm={6} md={6} sx={{ textAlign: 'center' }}>
+        {/* <OrderStatusSelect order={order} /> */}
+      </Grid>
+    </Fragment>
   )
 }
 

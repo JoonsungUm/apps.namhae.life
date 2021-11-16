@@ -4,16 +4,15 @@ import Head from 'next/head'
 import Link from 'next/link'
 
 import { useQuery } from '@apollo/client'
-import { Box, Toolbar, List, Button } from '@mui/material'
-
-import { isToday } from 'date-fns'
+import { Box, Toolbar, Button } from '@mui/material'
 
 import Appbar from '../../components/Appbar'
 import OrderDrawer from '../../components/OrderDrawer'
 
 import { Order } from '../../common/types'
 import { ORDERS_QUERY } from '../../query/OrdersQuery'
-import OrderManageCard from '../../components/OrderManageCard'
+import { isRecentOrder } from '../../common/utils'
+import OrderByStoreList from '../../components/OrderByStoreList'
 
 const OrdersPage: NextPage = () => {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -41,15 +40,9 @@ const OrdersPage: NextPage = () => {
 
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
-        <Box>
-          <List>
-            {orders?.map((order: Order) => {
-              if (isToday(order.createdAt)) {
-                return <OrderManageCard key={order.id} order={order} />
-              }
-            })}
-          </List>
-        </Box>
+        <OrderByStoreList
+          orders={orders?.filter((order: Order) => isRecentOrder(order))}
+        />
         <Box sx={{ textAlign: 'center' }}>
           <Link href="/orders/old" passHref>
             <Button variant="text" color="primary">
