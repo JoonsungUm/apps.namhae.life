@@ -12,6 +12,7 @@ import { DRAWER_WIDTH } from '../common/const'
 import OrderMenuCard from './OrderMenuCard'
 import { ORDERS_BY_STATUS_QUERY } from '../query/OrdersByStatusQuery'
 import { ORDER_STATUS_BULK_UPDATE_MUTATION } from '../query/OrderStatusBulkUpdateMutation'
+import { wait } from '../common/utils'
 
 interface OrderDrawerProps {
   mobileOpen: boolean
@@ -39,7 +40,8 @@ const OrderDrawer: NextPage<OrderDrawerProps> = ({
           status: 'ORDER_DONE',
         },
       },
-      onCompleted: () => {
+      onCompleted: async () => {
+        await wait(2000)
         router.push('/orders')
       },
     },

@@ -17,3 +17,7 @@ export const isRecentOrder = (order: Order): boolean => {
     subHours(new Date(), RECENT_ORDER_THRESHOLD) < new Date(order.createdAt)
   )
 }
+
+export const wait = (timeToDelay: number) => {
+  new Promise((resolve) => setTimeout(resolve, timeToDelay))
+}
