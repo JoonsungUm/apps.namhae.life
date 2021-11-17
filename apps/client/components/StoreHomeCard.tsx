@@ -18,7 +18,7 @@ const StoreHomeCard: NextPage<StoreHomeCardProps> = ({ store }) => {
           component="img"
           sx={{
             maxHeight: 250,
-            width: '250%',
+            width: '100%',
           }}
           image={imageUrl}
           alt={name}
