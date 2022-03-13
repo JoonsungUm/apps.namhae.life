@@ -71,12 +71,6 @@ const OrderByStoreList: NextPage<OrderByStoreListProps> = ({ orders }) => {
       <Typography variant="h6" textAlign="right" sx={{ pr: '40px' }}>
         모든 주문 합계: {orderPriceTotal}
       </Typography>
-      <Typography variant="h6" textAlign="right" sx={{ pr: '40px' }}>
-        배달 요금: 30000
-      </Typography>
-      <Typography variant="h6" textAlign="right" sx={{ pr: '40px' }}>
-        총 요금: {orderPriceTotal + 30000}
-      </Typography>
     </Box>
   )
 }
