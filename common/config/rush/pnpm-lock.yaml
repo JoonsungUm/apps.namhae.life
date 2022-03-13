@@ -26,6 +26,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^4.28.2
   '@typescript-eslint/parser': ^4.28.2
   apollo-server-express: ~3.4.0
+  date-fns: ~2.25.0
   deepmerge: ~4.2.2
   eslint: ^7.32.0
   eslint-config-next: 11.1.2
@@ -78,6 +79,7 @@ dependencies:
   '@typescript-eslint/eslint-plugin': 4.31.2_3815fab247b4312be6d1f55eb1f81298
   '@typescript-eslint/parser': 4.31.2_eslint@7.32.0+typescript@4.4.3
   apollo-server-express: 3.4.0_graphql@15.6.1
+  date-fns: 2.25.0
   deepmerge: 4.2.2
   eslint: 7.32.0
   eslint-config-next: 11.1.2_82ad98da5e129ae9d310451a179848d9
@@ -3580,6 +3582,11 @@ packages:
   /dotenv/10.0.0:
     resolution: {integrity: sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==}
     engines: {node: '>=10'}
+    dev: false
+
+  /dotenv/16.0.0:
+    resolution: {integrity: sha512-qD9WU0MPM4SWLPJy/r2Be+2WgQj8plChsyrCNQzW/0WjvcJQiKQJ9mH3ZgB3fxbUUxgc/11ZJ0Fi5KiimWGz2Q==}
+    engines: {node: '>=12'}
     dev: false
 
   /dotenv/8.6.0:
@@ -8571,7 +8578,7 @@ packages:
     dev: false
 
   file:projects/api.tgz:
-    resolution: {integrity: sha512-RerzQVRfFiQXzOIObjki6VA1vVKjW1gj5JBCy/TMe8+I2O1UNXunSZ2Iiy8+K8iUN8OqV4VpjURSSD6PSA8mDA==, tarball: file:projects/api.tgz}
+    resolution: {integrity: sha512-wywR2aM4QVrWCkKlweO8bOks5EV6f7sMg044oI34fE3q30J1D2hUboMWGObkEQt5Qsk4gwEGpAwGJVj+X0C0uQ==, tarball: file:projects/api.tgz}
     name: '@rush-temp/api'
     version: 0.0.0
     dependencies:
@@ -8591,6 +8598,7 @@ packages:
       '@typescript-eslint/eslint-plugin': 4.31.2_3815fab247b4312be6d1f55eb1f81298
       '@typescript-eslint/parser': 4.31.2_eslint@7.32.0+typescript@4.4.3
       apollo-server-express: 3.4.0_graphql@15.6.1
+      dotenv: 16.0.0
       eslint: 7.32.0
       eslint-config-prettier: 8.3.0_eslint@7.32.0
       eslint-plugin-prettier: 3.4.1_6e975bd57c7acf028c1a9ddbbf60c898

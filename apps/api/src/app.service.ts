@@ -4,10 +4,7 @@ import { Injectable } from '@nestjs/common'
 export class AppService {
   getHello(): string {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const revision = require('child_process')
-      .execSync('git rev-parse --short HEAD')
-      .toString()
-      .trim()
+    const revision = require('child_process').execSync('git rev-parse --short HEAD').toString().trim()
 
     const result = JSON.stringify(
       {
