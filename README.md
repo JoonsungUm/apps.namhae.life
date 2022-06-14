@@ -1,7 +1,7 @@
 # Namhae Life 식사배달 웹앱
 
 ## 기술스택
-
+![IMG_3363](https://user-images.githubusercontent.com/55748886/173482179-9537b692-bff7-4814-b812-e03d7808857d.JPG)
 
 
 ## 로컬 실행 환경 만들기
