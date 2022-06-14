@@ -1,8 +1,11 @@
 # Namhae Life 식사배달 웹앱
 
-## 기술스택
-![IMG_3363](https://user-images.githubusercontent.com/55748886/173482179-9537b692-bff7-4814-b812-e03d7808857d.JPG)
-
+## 사용기술스택
+![남해토스프로젝트기술스택](https://user-images.githubusercontent.com/55748886/173522181-5446aed3-440b-4f5b-bf21-6ced0ba89885.JPG)
+- 프론트 : React, Redux, Typescript, MaterailUI, next.js
+- 번들러 : Webpack 
+- 백엔드 : nest.js,graphQL
+- CI/CD : vercel, github
 
 ## 로컬 실행 환경 만들기
 
